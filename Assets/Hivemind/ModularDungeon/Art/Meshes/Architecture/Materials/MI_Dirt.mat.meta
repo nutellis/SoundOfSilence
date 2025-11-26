@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e21c590ed16dfbc4599312524e4fc0ae
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264856
+  packageName: Modular Dungeon - Dungeon Building Kit (Dungeon, Dungeons, Catacomb,
+    Tunnels)
+  packageVersion: 1.0
+  assetPath: Assets/Hivemind/ModularDungeon/Art/Meshes/Architecture/Materials/MI_Dirt.mat
+  uploadId: 630537

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 21d0901ac9866004899f0b081df8111d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264856
+  packageName: Modular Dungeon - Dungeon Building Kit (Dungeon, Dungeons, Catacomb,
+    Tunnels)
+  packageVersion: 1.0
+  assetPath: Assets/Hivemind/ModularDungeon/Art/Shaders/S_Particle.shadergraph
+  uploadId: 630537

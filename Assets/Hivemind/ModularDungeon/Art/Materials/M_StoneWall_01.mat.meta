@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 443cea0bdd624fb49a56e8b842c74294
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 264856
+  packageName: Modular Dungeon - Dungeon Building Kit (Dungeon, Dungeons, Catacomb,
+    Tunnels)
+  packageVersion: 1.0
+  assetPath: Assets/Hivemind/ModularDungeon/Art/Materials/M_StoneWall_01.mat
+  uploadId: 630537
