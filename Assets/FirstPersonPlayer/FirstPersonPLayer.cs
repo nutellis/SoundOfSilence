@@ -16,6 +16,7 @@ public class FirstPersonPlayer : MonoBehaviour
     public float speed;
     public float jumpForce;
     public Animator modelAnimator;
+    public bool allowMovement = true;
 
     Vector3 movementDirection;
     Rigidbody rb;
@@ -30,12 +31,25 @@ public class FirstPersonPlayer : MonoBehaviour
 
     private void Update()
     {
-        //transform.position += transform.TransformDirection(movementDirection) * speed * Time.deltaTime;
-        rb.MovePosition(transform.position + transform.TransformDirection(movementDirection) * speed * Time.deltaTime);
+        if (allowMovement)
+        {
+            //transform.position += transform.TransformDirection(movementDirection) * speed * Time.deltaTime;
+            rb.MovePosition(transform.position + transform.TransformDirection(movementDirection) * speed * Time.deltaTime);
 
-        modelAnimator.SetBool("isWalking", movementDirection.magnitude > 0.1f);
-        modelAnimator.SetFloat("Forward", movementDirection.z);
-        modelAnimator.SetFloat("Right", movementDirection.x);
+            if (modelAnimator != null)
+            {
+                modelAnimator.SetBool("isWalking", movementDirection.magnitude > 0.1f);
+                modelAnimator.SetFloat("Forward", movementDirection.z);
+                modelAnimator.SetFloat("Right", movementDirection.x);
+            }
+        } else {
+            if (modelAnimator != null)
+            {
+                modelAnimator.SetBool("isWalking", false);
+                modelAnimator.SetFloat("Forward", 0f);
+                modelAnimator.SetFloat("Right", 0f);
+            }
+        }
     }
 
 
