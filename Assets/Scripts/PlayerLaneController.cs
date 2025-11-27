@@ -61,7 +61,7 @@ public class PlayerLaneController : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext context)
     {
         // Early exit if not ready
-        if (lanePositions == null || lanePositions.Length == 0) return;
+        if (lanePositions == null || lanePositions.Length == 0 || playerScript == null) return;
         if (currentLaneIndex < 0 || currentLaneIndex >= lanePositions.Length) return;
 
 
