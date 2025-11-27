@@ -123,4 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb3753023a8816498868de5ded3a4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minionPool: []
+  minionPool:
+  - prefab: {fileID: 5962688270079145928, guid: e7d4c577afbc1bb47847a0ae5bf8a377, type: 3}
+    weight: 1

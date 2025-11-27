@@ -66,8 +66,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44bd0afead20db4469338040408f46a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 0}
-  bossSpawnPoint: {fileID: 0}
-  spawners: []
+  bossPrefab: {fileID: 1436389873265428997, guid: 5fa8d32c50f29b2419b11889b7e43514, type: 3}
+  bossSpawnPoint: {fileID: 1021985810588592586, guid: 2ec8a0f6b160906499a306189d3f59b6, type: 3}
+  spawners:
+  - {fileID: 896647374300415582, guid: bacc631d699176e4d920be70dd6c947e, type: 3}
+  - {fileID: 5251490301744873996, guid: 0bf2b8da2a63c2d4d887b1a494260c84, type: 3}
+  - {fileID: 2574181894804606409, guid: 420349f76d2843a4e9fb6d8535d3f860, type: 3}
   singleUse: 1
   lockPlayerMovement: 1
