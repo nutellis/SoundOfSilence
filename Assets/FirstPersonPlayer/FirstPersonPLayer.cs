@@ -50,7 +50,7 @@ public class FirstPersonPlayer : MonoBehaviour
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
         Debug.Log("Mouse Y movement: " + deltaY);
-        Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(Mathf.Clamp(-deltaY, -80f, 80f), 0f, 0f);
+        Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
         cameraTransform.rotation = Quaternion.Euler(newRotation);
     }
 
