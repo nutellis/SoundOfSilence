@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class FirstPersonPlayer : MonoBehaviour
 {
-
+    public bool enableDebugLogs = false;
     public float xSensitivity;
     public float ySensitivity;
 
@@ -56,14 +56,14 @@ public class FirstPersonPlayer : MonoBehaviour
     public void OnMouseX(InputAction.CallbackContext context)
     {
         float deltaX = context.ReadValue<float>() * xSensitivity;
-        Debug.Log("Mouse X movement: " + deltaX);
+        if (enableDebugLogs) Debug.Log("Mouse X movement: " + deltaX);
         transform.Rotate(0f, deltaX, 0f);
     }
 
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-        Debug.Log("Mouse Y movement: " + deltaY);
+        if (enableDebugLogs) Debug.Log("Mouse Y movement: " + deltaY);
         Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(Mathf.Clamp(-deltaY, -80f, 80f), 0f, 0f);
         cameraTransform.rotation = Quaternion.Euler(newRotation);
     }
@@ -71,7 +71,7 @@ public class FirstPersonPlayer : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext context)
     {
         Vector2 movementInput = context.ReadValue<Vector2>();
-        Debug.Log("Movement input: " + movementInput);
+        if (enableDebugLogs) Debug.Log("Movement input: " + movementInput);
         movementDirection = new Vector3(movementInput.x, 0f, movementInput.y);
 
     }
@@ -80,7 +80,7 @@ public class FirstPersonPlayer : MonoBehaviour
     {
         if (context.performed && isJumping == false)
         {
-            Debug.Log("Jump!");
+            if (enableDebugLogs) Debug.Log("Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isJumping = true;
         }
