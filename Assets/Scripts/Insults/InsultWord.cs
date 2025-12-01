@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "InsultWord", menuName = "Scriptable Objects/InsultWord")]
+[CreateAssetMenu(fileName = "InsultWord", menuName = "Insults/InsultWord")]
 public class InsultWord : ScriptableObject
 {
 
