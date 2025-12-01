@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Combat/Player Attack")]
@@ -13,4 +14,5 @@ public class PlayerAttack : ScriptableObject
     public int attackDamage = 10;
     public float attackRange = 0.5f;
 
+    public virtual void SpecialBehavior() { }
 }

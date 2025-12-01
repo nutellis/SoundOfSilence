@@ -420,7 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d09f44d447208140961e66fb8e601c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboResetTime: 1.5
 --- !u!114 &1721662561364470637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +436,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ada3e08ba60173439132e7d16004669, type: 2}
   - {fileID: 11400000, guid: b39a76bdafbe8084d93e7f2a050cee26, type: 2}
   - {fileID: 11400000, guid: 9198135670f6927418ef597441967ab8, type: 2}
-  - {fileID: 11400000, guid: 3d36e4b089b2c9f4bb8102e05bb3502e, type: 2}
+  - {fileID: 11400000, guid: 3f52c95aacd2b154ca93e3780c6809b2, type: 2}
 --- !u!1 &7514924406296660178
 GameObject:
   m_ObjectHideFlags: 0

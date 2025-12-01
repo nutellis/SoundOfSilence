@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d85f0617dda24a0459a22b9228daa214, type: 3}
+  m_Script: {fileID: 11500000, guid: 316c62b260610ca4b917b679f2897e3e, type: 3}
   m_Name: TambourineAttack
   m_EditorClassIdentifier: 
   id: 75

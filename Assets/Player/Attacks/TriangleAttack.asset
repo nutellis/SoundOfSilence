@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d85f0617dda24a0459a22b9228daa214, type: 3}
+  m_Script: {fileID: 11500000, guid: 34e2c10c0fa5e0745831aea33752ced2, type: 3}
   m_Name: TriangleAttack
   m_EditorClassIdentifier: 
   id: 50

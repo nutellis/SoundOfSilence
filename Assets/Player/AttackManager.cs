@@ -48,6 +48,7 @@ public class AttackManager : MonoBehaviour
             //trigger animation and logic
 
             //where the logic for each attack comes? that is a good idea.
+            activeAttack.SpecialBehavior();
 
             //trigger cooldown on the attack
             activeAttack.lastAttackTime = Time.time + activeAttack.attackCooldown;
