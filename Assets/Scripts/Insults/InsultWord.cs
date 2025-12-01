@@ -8,7 +8,7 @@ public class InsultWord : ScriptableObject
     // not sure that I should set them to public or ptivate
     // for now I just set ID to private and create a getter since no one should be able to change it
 
-    private string id;
+    public string id;
     public string displayText;
     // tags is mabey give words a flag that can be used to make combo or effective against certain type of boss
     public string[] tags;
@@ -21,7 +21,8 @@ public class InsultWord : ScriptableObject
 
 
 
-    public string getID()
+ /*
+     public string getID()
     {
         if (string.IsNullOrEmpty(id))
         {
@@ -34,4 +35,6 @@ public class InsultWord : ScriptableObject
         id = newId;
         return id;
     }
+
+*/
 }
