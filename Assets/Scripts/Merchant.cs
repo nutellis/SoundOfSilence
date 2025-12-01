@@ -50,4 +50,14 @@ public class Merchant : MonoBehaviour
     {
         stock.Remove(word);
     }
+
+
+    private void Start()
+    {
+        // TEMP TEST: try to buy the first word in stock when the game starts.
+        if (stock.Count > 0)
+        {
+            TryBuyWord(stock[0]);
+        }
+    }
 }
