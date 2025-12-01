@@ -45,15 +45,13 @@ public class Player : MonoBehaviour
 
         GetComponent<PlayerFreeController>().enabled = false;
        
-        var battleController = GetComponent<PlayerComboController>();
+       
         var laneController = GetComponent<PlayerLaneController>();
 
-        if (laneController != null && battleController != null)
+        if (laneController != null)
         {
             laneController.enabled = true;
             laneController.SetLane(1); // center by default
-
-            battleController.enabled = true;
         }
     }
 }
