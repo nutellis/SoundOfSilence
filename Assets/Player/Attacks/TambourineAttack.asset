@@ -15,5 +15,6 @@ MonoBehaviour:
   id: 75
   attackName: Tambourine
   attackCooldown: 0.5
+  lastAttackTime: 0
   attackDamage: 10
   attackRange: 0.5

@@ -8,7 +8,7 @@ public class PlayerAttack : ScriptableObject
 
     public float attackCooldown = 0.5f;
     
-    public float lastAttackTime = -Mathf.Infinity;
+    public float lastAttackTime = 0f;
 
     public int attackDamage = 10;
     public float attackRange = 0.5f;

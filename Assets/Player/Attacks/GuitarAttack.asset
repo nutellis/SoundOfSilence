@@ -15,5 +15,6 @@ MonoBehaviour:
   id: 12
   attackName: Guitar
   attackCooldown: 0.5
+  lastAttackTime: 0
   attackDamage: 10
   attackRange: 0.5
