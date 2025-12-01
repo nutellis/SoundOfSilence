@@ -16,7 +16,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         state = GetComponent<ActorState>();
-        actorType = GetComponent<Enemy>().enemyType;
+        actorType = GetComponent<Minion>().enemyType;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -44,12 +44,11 @@ public class Attack : MonoBehaviour
             }
 
         }
-        Debug.Log("CoolDown: " + (nextAttackTime - Time.time));
+       // Debug.Log("CoolDown: " + (nextAttackTime - Time.time));
     }
 
     public void PerformAttack()
     {
-
 
         Debug.Log("Enemy attacks player for " + attackDamage + " damage!");
 

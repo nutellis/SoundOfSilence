@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class FirstPersonPlayer : MonoBehaviour
+public class PlayerFreeController : MonoBehaviour
 {
 
     public float xSensitivity;
@@ -15,40 +12,29 @@ public class FirstPersonPlayer : MonoBehaviour
 
     public float speed;
     public float jumpForce;
-    public Animator modelAnimator;
-    public bool allowMovement = true;
 
     Vector3 movementDirection;
     Rigidbody rb;
+
+    Animator modelAnimator;
 
     bool isJumping;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
+        modelAnimator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        if (allowMovement)
-        {
-            //transform.position += transform.TransformDirection(movementDirection) * speed * Time.deltaTime;
-            rb.MovePosition(transform.position + transform.TransformDirection(movementDirection) * speed * Time.deltaTime);
+        rb.MovePosition(transform.position + transform.TransformDirection(movementDirection) * speed * Time.deltaTime);
 
-            if (modelAnimator != null)
-            {
-                modelAnimator.SetBool("isWalking", movementDirection.magnitude > 0.1f);
-                modelAnimator.SetFloat("Forward", movementDirection.z);
-                modelAnimator.SetFloat("Right", movementDirection.x);
-            }
-        } else {
-            if (modelAnimator != null)
-            {
-                modelAnimator.SetBool("isWalking", false);
-                modelAnimator.SetFloat("Forward", 0f);
-                modelAnimator.SetFloat("Right", 0f);
-            }
+        if (modelAnimator != null)
+        {
+            modelAnimator.SetBool("isWalking", movementDirection.magnitude > 0.1f);
+            modelAnimator.SetFloat("Forward", movementDirection.z);
+            modelAnimator.SetFloat("Right", movementDirection.x);
         }
     }
 
@@ -56,14 +42,14 @@ public class FirstPersonPlayer : MonoBehaviour
     public void OnMouseX(InputAction.CallbackContext context)
     {
         float deltaX = context.ReadValue<float>() * xSensitivity;
-        Debug.Log("Mouse X movement: " + deltaX);
+       // Debug.Log("Mouse X movement: " + deltaX);
         transform.Rotate(0f, deltaX, 0f);
     }
 
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-        Debug.Log("Mouse Y movement: " + deltaY);
+      //  Debug.Log("Mouse Y movement: " + deltaY);
         Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
         cameraTransform.rotation = Quaternion.Euler(newRotation);
     }
@@ -71,7 +57,7 @@ public class FirstPersonPlayer : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext context)
     {
         Vector2 movementInput = context.ReadValue<Vector2>();
-        Debug.Log("Movement input: " + movementInput);
+     //   Debug.Log("Movement input: " + movementInput);
         movementDirection = new Vector3(movementInput.x, 0f, movementInput.y);
 
     }
@@ -80,7 +66,7 @@ public class FirstPersonPlayer : MonoBehaviour
     {
         if (context.performed && isJumping == false)
         {
-            Debug.Log("Jump!");
+        //    Debug.Log("Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isJumping = true;
         }

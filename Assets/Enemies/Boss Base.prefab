@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2390488621062991488}
   - component: {fileID: 559497535469267832}
   - component: {fileID: 7551830956927169631}
+  - component: {fileID: 829213938712778316}
   m_Layer: 0
   m_Name: Boss Base
   m_TagString: Enemy
@@ -95,12 +96,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2933764084766861816}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c97f7ebee3d1c4a814512f1456b662, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e611f68e0c32b44d8d915f383798681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  waypoints: []
+  moveSpeed: 0
+  reachThreshold: 0
   enemyType: 2
   animator: {fileID: 6830717155672137776}
 --- !u!114 &2390488621062991488
@@ -147,6 +150,21 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 5
   attackCooldown: 2
+--- !u!114 &829213938712778316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933764084766861816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb3753023a8816498868de5ded3a4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionPool:
+  - prefab: {fileID: 1984689056620128352, guid: 9ad35c1b41737304db1edc267c76620f, type: 3}
+    weight: 0
 --- !u!1001 &8447382913058350672
 PrefabInstance:
   m_ObjectHideFlags: 0

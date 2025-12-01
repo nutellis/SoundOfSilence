@@ -14,7 +14,6 @@ public class OnSpellCastingFinishedEvent : MonoBehaviour
 
     }
 
-    // This is the function you attach to the Animation Event (must be public, no parameters)
     public void OnSpellCastingFinished()
     {
         if (parent != null)

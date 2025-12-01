@@ -10,10 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 6723573908850700956}
   - component: {fileID: 3453163307452044485}
-  - component: {fileID: 1542702488883981005}
-  - component: {fileID: 4315719712595877427}
   - component: {fileID: 5794994506697846798}
+  - component: {fileID: 3234768376668074890}
+  - component: {fileID: 1542702488883981005}
+  - component: {fileID: 4024386612986022518}
   - component: {fileID: 6090471808847171297}
+  - component: {fileID: 4315719712595877427}
+  - component: {fileID: 5262296532697862430}
+  - component: {fileID: 4166108553071258762}
+  - component: {fileID: 1721662561364470637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -35,7 +40,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 611224481647153324}
-  - {fileID: 1162494027943730964}
+  - {fileID: 2359580194114151392}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3453163307452044485
@@ -61,6 +66,47 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &5794994506697846798
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &3234768376668074890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791e4f71a500b374198365067ca7380b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSensitivity: 0
+  ySensitivity: 0
 --- !u!114 &1542702488883981005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +167,19 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4315719712595877427}
-        m_TargetAssemblyTypeName: FirstPersonPlayer, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerFreeController, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5262296532697862430}
+        m_TargetAssemblyTypeName: PlayerLaneController, Assembly-CSharp
         m_MethodName: OnMovement
         m_Mode: 0
         m_Arguments:
@@ -150,11 +208,168 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 203b2fa0-eef6-4e06-a99a-96ae500a8fea
     m_ActionName: 'Walking/Jump[/Keyboard/space,/DualSenseGamepadHID/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4166108553071258762}
+        m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
+        m_MethodName: OnQ
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b27285e6-9191-479c-bad4-a5788c7641ef
+    m_ActionName: 'Battle/Combat[/Keyboard/q,/Keyboard/w,/Keyboard/e,/Keyboard/r,/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5262296532697862430}
+        m_TargetAssemblyTypeName: PlayerLaneController, Assembly-CSharp
+        m_MethodName: OnMouseX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8d3e890d-0775-48d9-b3da-7e1a1df5e2c8
+    m_ActionName: 'Battle/MouseX[/Mouse/delta/x]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5262296532697862430}
+        m_TargetAssemblyTypeName: PlayerLaneController, Assembly-CSharp
+        m_MethodName: OnMouseY
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0dfc3528-4b95-4f02-8156-11fa74a10317
+    m_ActionName: 'Battle/MouseY[/Mouse/delta/y]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5262296532697862430}
+        m_TargetAssemblyTypeName: PlayerLaneController, Assembly-CSharp
+        m_MethodName: OnLaneMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fa66bc42-4258-4d44-8311-c9aba48e395d
+    m_ActionName: 'Battle/Movement[/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/right]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4166108553071258762}
+        m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
+        m_MethodName: OnW
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ea7c08ab-ee97-4c81-ae0e-161cf4c76e81
+    m_ActionName: 'Battle/Combo1[/Keyboard/w,/DualSenseGamepadHID/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4166108553071258762}
+        m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
+        m_MethodName: OnE
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 78dd2b92-2fe0-4076-b02f-6810ad812df5
+    m_ActionName: 'Battle/Combo2[/Keyboard/e,/DualSenseGamepadHID/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4166108553071258762}
+        m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
+        m_MethodName: OnInvoke
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c1bfd17f-4c61-4bdf-8c25-a1da99c9a0d6
+    m_ActionName: 'Battle/Invoke[/Keyboard/r,/DualSenseGamepadHID/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4166108553071258762}
+        m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e1bae3d6-d8bd-478e-83a6-b6a3d5dd9c01
+    m_ActionName: 'Battle/Shoot[/Mouse/leftButton,/DualSenseGamepadHID/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Walking
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 4617954600658430646}
+--- !u!114 &4024386612986022518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5842b6f87e13e4083d7b271140e746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttacking: 0
+  isWalking: 0
+  isDead: 0
+--- !u!114 &6090471808847171297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a35353cdd886340b0cd8726ed6c9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!114 &4315719712595877427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,35 +387,41 @@ MonoBehaviour:
   cameraTransform: {fileID: 611224481647153324}
   speed: 5
   jumpForce: 5
-  modelAnimator: {fileID: 5098689389083788654}
---- !u!54 &5794994506697846798
-Rigidbody:
+--- !u!114 &5262296532697862430
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6965509076009562106}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &6090471808847171297
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3189e792a27ad409416783b73e7eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSensitivity: 0.1
+  ySensitivity: -0.1
+  cameraTransform: {fileID: 611224481647153324}
+  lanePositions:
+  - {fileID: 7407382225892276641, guid: 80497e198d6dfc34c9a22d1ff7cb6c07, type: 3}
+  - {fileID: 3016024693936620954, guid: ad27cf38de4eab143a158bd183b3f65f, type: 3}
+  - {fileID: 8420545790169724214, guid: 08b04fb70f210454e8ca2a0934053525, type: 3}
+  laneMoveSpeed: 21.18
+  laneChangeCooldown: 0
+--- !u!114 &4166108553071258762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d09f44d447208140961e66fb8e601c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboResetTime: 1.5
+--- !u!114 &1721662561364470637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,11 +430,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6965509076009562106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10a35353cdd886340b0cd8726ed6c9a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 03637708160737c43ba344ef583e7534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
+  playerAttacks:
+  - {fileID: 11400000, guid: 0ada3e08ba60173439132e7d16004669, type: 2}
+  - {fileID: 11400000, guid: b39a76bdafbe8084d93e7f2a050cee26, type: 2}
+  - {fileID: 11400000, guid: 9198135670f6927418ef597441967ab8, type: 2}
+  - {fileID: 11400000, guid: 3d36e4b089b2c9f4bb8102e05bb3502e, type: 2}
 --- !u!1 &7514924406296660178
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +575,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1001 &1704818435854448895
+--- !u!1001 &2824971729804575755
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -412,13 +636,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 883c52f6713c24849b7a9fd78d278174, type: 3}
---- !u!4 &1162494027943730964 stripped
+--- !u!4 &2359580194114151392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 883c52f6713c24849b7a9fd78d278174, type: 3}
-  m_PrefabInstance: {fileID: 1704818435854448895}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5098689389083788654 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 883c52f6713c24849b7a9fd78d278174, type: 3}
-  m_PrefabInstance: {fileID: 1704818435854448895}
+  m_PrefabInstance: {fileID: 2824971729804575755}
   m_PrefabAsset: {fileID: 0}

@@ -107,11 +107,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fa8d32c50f29b2419b11889b7e43514, type: 3}
---- !u!1 &96701374308524706 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1436389873265428997, guid: 5fa8d32c50f29b2419b11889b7e43514, type: 3}
-  m_PrefabInstance: {fileID: 1348996972988065959}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1653227786527092936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 309033617836169327, guid: 5fa8d32c50f29b2419b11889b7e43514, type: 3}
@@ -497,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 814392426175146272, guid: 22f72a71683a84545ab2ab968c23e4c2, type: 3}
       propertyPath: bossPrefab
       value: 
-      objectReference: {fileID: 96701374308524706}
+      objectReference: {fileID: 2933764084766861816, guid: f980a3c51d59f3f43b24a662311e6e50, type: 3}
     - target: {fileID: 814392426175146272, guid: 22f72a71683a84545ab2ab968c23e4c2, type: 3}
       propertyPath: bossSpawnPoint
       value: 

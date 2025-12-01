@@ -28,29 +28,22 @@ public class BattleTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (triggered && singleUse) return;
-
-        // detect player - assumes tag "Player" or has FirstPersonPlayer
-        var player = other.GetComponent<FirstPersonPlayer>();
-        if (player != null)
+        
+        if (other.CompareTag("Player"))
         {
             triggered = true;
-            StartBattle(player);
+            StartBattle(other.gameObject);
         }
     }
 
-    void StartBattle(FirstPersonPlayer player)
+    void StartBattle(GameObject player)
     {
+        Debug.Log("Initiating Battle");
         // limit player movement
         if (lockPlayerMovement)
         {
-            player.allowMovement = false;
-
-            var laneController = player.GetComponent<PlayerLaneController>();
-            if (laneController != null)
-            {
-                laneController.enabled = true;
-                laneController.SetLane(1); // center by default
-            }
+            var playerScript = player.GetComponent<Player>();
+            playerScript.switchToBattle();
 
             // TODO: battle UI, music, etc.
         }
@@ -59,6 +52,7 @@ public class BattleTrigger : MonoBehaviour
         GameObject bossGO = null;
         if (bossPrefab != null && bossSpawnPoint != null)
         {
+            
             bossGO = Instantiate(bossPrefab, bossSpawnPoint.position, bossSpawnPoint.rotation);
         }
         else if (bossPrefab != null)
@@ -71,14 +65,13 @@ public class BattleTrigger : MonoBehaviour
         {
             bossComponent = bossGO.GetComponent<Boss>();
         }
-
         // register spawners with boss
         foreach (var sp in spawners)
         {
             sp.AssignBoss(bossComponent);
             sp.StartSpawning();
         }
-
+        
         // let boss do initial spawn
         if (bossComponent != null)
         {

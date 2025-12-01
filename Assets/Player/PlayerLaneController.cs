@@ -3,6 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerLaneController : MonoBehaviour
 {
+    [Header("Look Sensitivity")]
+    public float xSensitivity;
+    public float ySensitivity;
+
+
+    public Transform cameraTransform;
+
+
     [Header("Lane Settings")]
     public Transform[] lanePositions; // 0 = Left, 1 = Center, 2 = Right
     public float laneMoveSpeed = 10f;
@@ -14,12 +22,10 @@ public class PlayerLaneController : MonoBehaviour
     private int currentLaneIndex = 1; // center by default
 
     private Rigidbody rb;
-    private FirstPersonPlayer playerScript;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerScript = GetComponent<FirstPersonPlayer>();
 
         if (lanePositions == null || lanePositions.Length == 0)
         {
@@ -57,22 +63,30 @@ public class PlayerLaneController : MonoBehaviour
         Vector3 newPos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * laneMoveSpeed);
         rb.MovePosition(newPos);
     }
+    public void OnMouseX(InputAction.CallbackContext context)
+    {
+        float deltaX = context.ReadValue<float>() * xSensitivity;
+        Debug.Log("Mouse X movement: " + deltaX);
+        transform.Rotate(0f, deltaX, 0f);
+    }
 
-    public void OnMovement(InputAction.CallbackContext context)
+    public void OnMouseY(InputAction.CallbackContext context)
+    {
+        float deltaY = context.ReadValue<float>() * ySensitivity;
+        Debug.Log("Mouse Y movement: " + deltaY);
+        Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
+        cameraTransform.rotation = Quaternion.Euler(newRotation);
+    }
+
+    public void OnLaneMovement(InputAction.CallbackContext context)
     {
         // Early exit if not ready
-        if (lanePositions == null || lanePositions.Length == 0 || playerScript == null) return;
+        if (lanePositions == null || lanePositions.Length == 0) return;
         if (currentLaneIndex < 0 || currentLaneIndex >= lanePositions.Length) return;
 
 
         Vector2 input = context.ReadValue<Vector2>();
         float horizontal = input.x;
-
-        // Forward/Backward movement still goes to the original script (only if movement allowed)
-        if (playerScript.allowMovement)
-        {
-            playerScript.OnMovement(context);
-        }
 
         if (!context.performed || isChangingLane)
             return;
@@ -101,7 +115,8 @@ public class PlayerLaneController : MonoBehaviour
         if (newLaneIndex != currentLaneIndex)
         {
             currentLaneIndex = newLaneIndex;
-            StartCoroutine(LaneCooldown());
+            if(laneChangeCooldown > 0 )
+                StartCoroutine(LaneCooldown());
         }
     }
 

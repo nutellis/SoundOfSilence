@@ -14,22 +14,20 @@ public class Peojectile : MonoBehaviour
 
     private void Update()
     {
-        // move forward constantly
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Example: if it hits the player
         if (other.CompareTag("Player"))
         {
-            // Apply damage if you have a player health script
+            //get health component and apply damage
             // other.GetComponent<PlayerHealth>()?.TakeDamage(damage);
 
             Destroy(gameObject);
         }
 
-        // Destroy bullet on hitting any collider (optional)
+        // Destroy bullet on hitting any collider
         //if (!other.CompareTag("Enemy"))
         //{
         //    Destroy(gameObject);

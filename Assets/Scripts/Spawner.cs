@@ -94,7 +94,7 @@ public class Spawner : MonoBehaviour
             aliveCount++;
 
             // TODO: monster death callback
-            var monster = go.GetComponent<Monster>();
+            var monster = go.GetComponent<Minion>();
             if (monster != null)
             {
                 monster.Initialize(waypoints); // Pass waypoints to monster
@@ -121,7 +121,7 @@ public class Spawner : MonoBehaviour
                 GameObject go = Instantiate(prefabToSpawn, spawnPoint != null ? spawnPoint.position : transform.position, Quaternion.identity);
                 totalSpawned++;
                 aliveCount++;
-                var monster = go.GetComponent<Monster>();
+                var monster = go.GetComponent<Minion>();
                 if (monster != null)
                 {
                     monster.Initialize(waypoints); // Pass waypoints to monster

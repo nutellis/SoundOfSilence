@@ -126,3 +126,5 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 2.5
   reachThreshold: 0.2
+  enemyType: 0
+  animator: {fileID: 0}
