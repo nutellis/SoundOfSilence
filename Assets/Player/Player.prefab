@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6090471808847171297}
   - component: {fileID: 4315719712595877427}
   - component: {fileID: 5262296532697862430}
+  - component: {fileID: 4166108553071258762}
+  - component: {fileID: 1721662561364470637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -208,7 +210,7 @@ MonoBehaviour:
     m_ActionName: 'Walking/Jump[/Keyboard/space,/DualSenseGamepadHID/buttonSouth]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4166108553071258762}
         m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
         m_MethodName: OnQ
         m_Mode: 0
@@ -272,7 +274,7 @@ MonoBehaviour:
     m_ActionName: 'Battle/Movement[/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/right]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4166108553071258762}
         m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
         m_MethodName: OnW
         m_Mode: 0
@@ -288,7 +290,7 @@ MonoBehaviour:
     m_ActionName: 'Battle/Combo1[/Keyboard/w,/DualSenseGamepadHID/buttonNorth]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4166108553071258762}
         m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
         m_MethodName: OnE
         m_Mode: 0
@@ -304,7 +306,7 @@ MonoBehaviour:
     m_ActionName: 'Battle/Combo2[/Keyboard/e,/DualSenseGamepadHID/buttonEast]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4166108553071258762}
         m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
         m_MethodName: OnInvoke
         m_Mode: 0
@@ -320,7 +322,7 @@ MonoBehaviour:
     m_ActionName: 'Battle/Invoke[/Keyboard/r,/DualSenseGamepadHID/rightTrigger]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4166108553071258762}
         m_TargetAssemblyTypeName: PlayerComboController, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
@@ -406,6 +408,35 @@ MonoBehaviour:
   - {fileID: 8420545790169724214, guid: 08b04fb70f210454e8ca2a0934053525, type: 3}
   laneMoveSpeed: 21.18
   laneChangeCooldown: 0
+--- !u!114 &4166108553071258762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d09f44d447208140961e66fb8e601c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1721662561364470637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965509076009562106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03637708160737c43ba344ef583e7534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAttacks:
+  - {fileID: 11400000, guid: 0ada3e08ba60173439132e7d16004669, type: 2}
+  - {fileID: 11400000, guid: b39a76bdafbe8084d93e7f2a050cee26, type: 2}
+  - {fileID: 11400000, guid: 9198135670f6927418ef597441967ab8, type: 2}
+  - {fileID: 11400000, guid: 3f52c95aacd2b154ca93e3780c6809b2, type: 2}
 --- !u!1 &7514924406296660178
 GameObject:
   m_ObjectHideFlags: 0
