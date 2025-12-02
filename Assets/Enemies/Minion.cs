@@ -28,6 +28,10 @@ public class Minion : MonoBehaviour
     {
         state = GetComponent<ActorState>();
         animator.SetFloat("speed", 1 / moveSpeed);
+
+        state.isWalking = true;
+
+        transform.forward = -Vector3.forward;
     }
 
     private void Update()
@@ -52,10 +56,12 @@ public class Minion : MonoBehaviour
 
             Vector3 move = dir.normalized * moveSpeed * Time.deltaTime;
             transform.position += move;
-            transform.forward = Vector3.Slerp(transform.forward, dir.normalized, 0.2f);
-        }
 
+            state.isWalking = true;
+
+        }
         animator.SetBool("isAttacking", state.isAttacking);
+        animator.SetBool("isWalking", state.isWalking);
     }
 
     void ReachEnd()

@@ -40,6 +40,25 @@ public class PlayerLaneController : MonoBehaviour
         }
 
         currentLaneIndex = Mathf.Clamp(currentLaneIndex, 0, lanePositions.Length - 1);
+
+        if (lanePositions == null || lanePositions.Length == 0)
+            return;
+
+        if (currentLaneIndex < 0 || currentLaneIndex >= lanePositions.Length)
+            return;
+
+        var laneTransform = lanePositions[currentLaneIndex];
+        if (laneTransform == null)
+            return;
+
+        Vector3 targetPos = new Vector3(
+            laneTransform.position.x,
+            transform.position.y,
+            transform.position.z
+        );
+
+        Vector3 newPos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * laneMoveSpeed);
+        rb.MovePosition(newPos);
     }
 
     void Update()
