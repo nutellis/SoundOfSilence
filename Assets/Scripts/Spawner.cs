@@ -98,7 +98,7 @@ public class Spawner : MonoBehaviour
             if (monster != null)
             {
                 monster.Initialize(waypoints); // Pass waypoints to monster
-                monster.OnDestroyed += () => { aliveCount = Mathf.Max(0, aliveCount - 1); };
+                monster.onDestroy += () => { aliveCount = Mathf.Max(0, aliveCount - 1); };
             }
 
             // respect total limit
@@ -125,7 +125,7 @@ public class Spawner : MonoBehaviour
                 if (monster != null)
                 {
                     monster.Initialize(waypoints); // Pass waypoints to monster
-                    monster.OnDestroyed += () => { aliveCount = Mathf.Max(0, aliveCount - 1); };
+                    monster.onDestroy += () => { aliveCount = Mathf.Max(0, aliveCount - 1); };
                 }
             }
         }

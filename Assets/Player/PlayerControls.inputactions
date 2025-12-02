@@ -57,8 +57,30 @@
                 },
                 {
                     "name": "",
+                    "id": "b63a0853-aa39-4cd7-a320-8323a532b05c",
+                    "path": "<DualSenseGamepadHID>/rightStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b540f3b3-0d6b-4f82-b15b-9afb8622b785",
                     "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19d5e24b-0def-4b4b-803a-3e5b4a575f34",
+                    "path": "<DualSenseGamepadHID>/rightStick/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

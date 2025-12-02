@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Minion : MonoBehaviour
@@ -17,7 +18,7 @@ public class Minion : MonoBehaviour
 
     private ActorState state;
 
-    public Action OnDestroyed;
+    public Action onDestroy;
 
     public void Initialize(Transform[] laneWaypoints)
     {
@@ -29,9 +30,13 @@ public class Minion : MonoBehaviour
         state = GetComponent<ActorState>();
         animator.SetFloat("speed", 1 / moveSpeed);
 
-        state.isWalking = true;
-
         transform.forward = -Vector3.forward;
+
+        Health health = GetComponent<Health>();
+        if(health != null)
+        {
+            health.shouldDestroy += DestroySelf;
+        }
     }
 
     private void Update()
@@ -70,15 +75,9 @@ public class Minion : MonoBehaviour
         DestroySelf();
     }
 
-    public void TakeDamage(float dmg)
-    {
-        // TODO: monster health
-        DestroySelf();
-    }
-
     public void DestroySelf()
     {
-        OnDestroyed?.Invoke();
+        onDestroy?.Invoke();
         Destroy(gameObject);
     }
 }

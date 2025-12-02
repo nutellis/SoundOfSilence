@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
-  isWalking: 0
+  isWalking: 1
   isDead: 0
 --- !u!114 &-1212185333880673649
 MonoBehaviour:
@@ -118,7 +118,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 2.5
   reachThreshold: 0.2
-  enemyType: 0
+  enemyType: 1
   animator: {fileID: 2318906439548678442}
 --- !u!114 &3818602516937665248
 MonoBehaviour:

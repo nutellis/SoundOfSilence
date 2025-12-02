@@ -85,14 +85,12 @@ public class PlayerLaneController : MonoBehaviour
     public void OnMouseX(InputAction.CallbackContext context)
     {
         float deltaX = context.ReadValue<float>() * xSensitivity;
-        Debug.Log("Mouse X movement: " + deltaX);
         transform.Rotate(0f, deltaX, 0f);
     }
 
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-        Debug.Log("Mouse Y movement: " + deltaY);
         Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
         cameraTransform.rotation = Quaternion.Euler(newRotation);
     }
