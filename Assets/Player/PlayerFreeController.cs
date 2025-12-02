@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerFreeController : MonoBehaviour
 {
-
     public float xSensitivity;
     public float ySensitivity;
 
@@ -42,14 +41,12 @@ public class PlayerFreeController : MonoBehaviour
     public void OnMouseX(InputAction.CallbackContext context)
     {
         float deltaX = context.ReadValue<float>() * xSensitivity;
-       // Debug.Log("Mouse X movement: " + deltaX);
         transform.Rotate(0f, deltaX, 0f);
     }
 
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-      //  Debug.Log("Mouse Y movement: " + deltaY);
         Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
         cameraTransform.rotation = Quaternion.Euler(newRotation);
     }
@@ -57,7 +54,6 @@ public class PlayerFreeController : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext context)
     {
         Vector2 movementInput = context.ReadValue<Vector2>();
-     //   Debug.Log("Movement input: " + movementInput);
         movementDirection = new Vector3(movementInput.x, 0f, movementInput.y);
 
     }
@@ -66,7 +62,6 @@ public class PlayerFreeController : MonoBehaviour
     {
         if (context.performed && isJumping == false)
         {
-        //    Debug.Log("Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isJumping = true;
         }

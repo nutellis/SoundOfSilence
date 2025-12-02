@@ -48,6 +48,10 @@ public class BattleTrigger : MonoBehaviour
             // TODO: battle UI, music, etc.
         }
 
+        // TODO: disable player attack after battle ends
+        var attackController = player.GetComponent<PlayerAttackController>();
+        attackController.enabled = true;
+
         // spawn boss
         GameObject bossGO = null;
         if (bossPrefab != null && bossSpawnPoint != null)
