@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 98ea15acd4af41342a8cb5f6a5b31077
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203296
+  packageName: Piano
+  packageVersion: 1.0
+  assetPath: Assets/Piano/piano.prefab
+  uploadId: 453618

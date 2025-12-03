@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (isFlaggedForDestruction == true) return;
 
@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    void Heal(int amount)
+    public void Heal(int amount)
     {
         if (isFlaggedForDestruction == true) return;
 

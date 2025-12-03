@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttackController : MonoBehaviour
 {
-    public GameObject projectileSpawn;
+   
     public GameObject startingInstrument;
 
     private Instrument[] instruments;
@@ -49,7 +49,7 @@ public class PlayerAttackController : MonoBehaviour
 
     private void FireAttack()
     {
-        attackingInstrument.Fire(projectileSpawn.transform);
+       // attackingInstrument.Fire(projectileSpawn.transform);
         attackingInstrument = null;
         fireAttack = false;
     }

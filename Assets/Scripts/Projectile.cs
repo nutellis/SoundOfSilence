@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage;
+    public int damage;
     public float speed;
 
     public float lifetime = 20f;
@@ -31,9 +31,9 @@ public class Projectile : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Projectile collided with " + collision.gameObject.name);
-        if (collision.gameObject.TryGetComponent<Monster>(out var monster))
+        if (collision.gameObject.TryGetComponent<Health>(out var health))
         {
-            monster.TakeDamage(damage);
+           health.TakeDamage(damage);
         }
         Destroy(gameObject);
     }

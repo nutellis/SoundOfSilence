@@ -47,8 +47,11 @@ public class PlayerFreeController : MonoBehaviour
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-        Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
-        cameraTransform.rotation = Quaternion.Euler(newRotation);
+        deltaY = Mathf.Clamp(deltaY, -85f, 85f);
+        Quaternion pitchQuat = Quaternion.AngleAxis(deltaY, Vector3.right);
+
+        // apply rotation
+        cameraTransform.localRotation = pitchQuat;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
