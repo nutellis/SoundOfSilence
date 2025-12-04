@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
 
     Boss boss; // assigned by BattleTrigger
     int totalSpawned = 0;
-    int aliveCount = 0;
+    public int aliveCount = 0;
     bool spawning = false;
     Coroutine spawnRoutine;
     private Transform[] waypoints;

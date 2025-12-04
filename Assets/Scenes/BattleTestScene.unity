@@ -877,7 +877,7 @@ PrefabInstance:
       objectReference: {fileID: 8068012296421031656}
     - target: {fileID: 2404561025496710611, guid: ad27cf38de4eab143a158bd183b3f65f, type: 3}
       propertyPath: maxAliveAtOnce
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2404561025496710611, guid: ad27cf38de4eab143a158bd183b3f65f, type: 3}
       propertyPath: maxTotalSpawns

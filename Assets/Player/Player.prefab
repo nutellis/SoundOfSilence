@@ -423,7 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   isWalking: 0
-  isDead: 0
+  isDying: 0
 --- !u!114 &6090471808847171297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,8 +436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a35353cdd886340b0cd8726ed6c9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   currentHealth: 0
+  animator: {fileID: 0}
 --- !u!114 &4315719712595877427
 MonoBehaviour:
   m_ObjectHideFlags: 0

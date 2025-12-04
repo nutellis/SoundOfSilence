@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Attack : MonoBehaviour
@@ -11,6 +12,10 @@ public class Attack : MonoBehaviour
     private ActorType actorType;
 
     private Transform player;
+
+    public Transform projectilePosition;
+    public GameObject projectileSpawn;
+    public int projectileSpeed = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,25 +47,42 @@ public class Attack : MonoBehaviour
                 state.isWalking = false;
                 state.isAttacking = true;
             }
-
         }
-       // Debug.Log("CoolDown: " + (nextAttackTime - Time.time));
     }
 
-    public void PerformAttack()
+    public void CastSpell()
+    {
+        Debug.Log("Enemy attacks player for " + attackDamage + " damage!");
+        // Throw projectile towards player
+
+        var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);
+        projectile.GameObject().GetComponent<Projectile>().Initialize(gameObject);
+
+        var projectileData = projectile.GetComponent<Projectile>();
+        projectileData.damage = attackDamage;
+        projectileData.speed = projectileSpeed;
+
+
+        Debug.Log("Ranged enemy throws a projectile at the player!");
+    }
+
+    //im lazy :)
+    public void RangedAttackFinished()
+    {
+        state.isAttacking = false;
+        state.isWalking = true;
+        nextAttackTime = Time.time + attackCooldown;
+    }
+
+    public void PerformMeleeAttack()
     {
 
         Debug.Log("Enemy attacks player for " + attackDamage + " damage!");
 
-        if (actorType == ActorType.Ranged)
-        {
-            // Throw projectile towards player
-            Debug.Log("Ranged enemy throws a projectile at the player!");
+        player.GetComponent<Health>().TakeDamage(attackDamage);
 
-            state.isAttacking = false;
-            state.isWalking = true;
-        }
-
+        state.isAttacking = false;
+        state.isWalking = true;
         nextAttackTime = Time.time + attackCooldown;
     }
 

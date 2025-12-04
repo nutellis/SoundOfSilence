@@ -14,10 +14,18 @@ public class OnSpellCastingFinishedEvent : MonoBehaviour
 
     }
 
+    public void CastSpell()
+    {
+        if (parent != null)
+            parent.CastSpell();
+        else
+            Debug.LogWarning("AnimationEventRelay: parent is null");
+    }
+
     public void OnSpellCastingFinished()
     {
         if (parent != null)
-            parent.PerformAttack();
+            parent.RangedAttackFinished();
         else
             Debug.LogWarning("AnimationEventRelay: parent is null");
     }

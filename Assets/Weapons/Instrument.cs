@@ -29,9 +29,9 @@ public class Instrument : MonoBehaviour
         {
             Debug.Log("Successfully fired " + instrumentName);
 
-
             var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);
             var projectileData = projectile.GetComponent<Projectile>();
+            projectileData.Initialize(gameObject);
             projectileData.damage = attackDamage;
             projectileData.speed = projectileSpeed;
 

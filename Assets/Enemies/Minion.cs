@@ -10,12 +10,15 @@ public class Minion : MonoBehaviour
     public float moveSpeed = 2.5f;
     public float reachThreshold = 0.2f;
     public int deathCost;
+    public int explosionDmg;
 
     int currentIndex = 0;
 
     public ActorType enemyType = ActorType.Melee;
 
     public Animator animator;
+
+    public GameObject deathVFX;
 
     private ActorState state;
 
@@ -36,13 +39,14 @@ public class Minion : MonoBehaviour
         Health health = GetComponent<Health>();
         if(health != null)
         {
-            health.shouldDestroy += DestroySelf;
+            health.shouldDestroy += AnimateDeath;
         }
+
     }
 
     private void Update()
     {
-        if (!state.isAttacking)
+        if (!state.isAttacking && !state.isDying)
         {
             if (waypoints == null || waypoints.Length == 0) return;
             Transform target = waypoints[currentIndex];
@@ -53,7 +57,7 @@ public class Minion : MonoBehaviour
                 currentIndex++;
                 if (currentIndex >= waypoints.Length)
                 {
-                    ReachEnd();
+                    Explode();
                     return;
                 }
                 target = waypoints[currentIndex];
@@ -70,20 +74,59 @@ public class Minion : MonoBehaviour
         animator.SetBool("isWalking", state.isWalking);
     }
 
-    void ReachEnd()
+    void Explode()
     {
-        // TODO: implement attack on player, damage, etc, then destroy
-        DestroySelf();
+        Explosion();
+        Player player = FindFirstObjectByType<Player>();
+        if (player != null)
+        {
+            player.GetComponent<Health>().TakeDamage(explosionDmg);
+        }
+
+        Die();
     }
 
-    public void DestroySelf()
+    public void Die()
+    {
+        onDestroy?.Invoke();
+        Destroy(gameObject);
+    }
+
+    //ty chatgpt
+    void Explosion()
+    {
+        var vfx = Instantiate(deathVFX, transform.position, Quaternion.identity);
+        ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
+        if (ps == null) ps = vfx.GetComponentInChildren<ParticleSystem>();
+
+        if (ps != null)
+        {
+            ps.Play();
+            var main = ps.main;
+            float duration = main.duration;
+
+            // use constantMax to be safe if startLifetime is a range
+            float lifetime = main.startLifetime.constantMax;
+
+            float life = duration + lifetime;
+            Destroy(vfx, life/2 + 0.1f);
+        }
+        else
+        {
+            Destroy(vfx, 5f); // fallback
+        }
+    }
+
+    void AnimateDeath()
     {
         AttackManager manager = FindFirstObjectByType<AttackManager>();
         if (manager != null)
         {
             manager.OnMinionDeath(deathCost);
         }
-        onDestroy?.Invoke();
-        Destroy(gameObject);
+        state.isDying = true;
+        animator.SetBool("isDying", state.isDying);
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isAttacking", false);
     }
 }

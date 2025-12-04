@@ -104,6 +104,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 0
   reachThreshold: 0
+  deathCost: 0
   enemyType: 2
   animator: {fileID: 6830717155672137776}
 --- !u!114 &2390488621062991488
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  animator: {fileID: 0}
 --- !u!114 &7551830956927169631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +166,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionPool:
   - prefab: {fileID: 1984689056620128352, guid: 9ad35c1b41737304db1edc267c76620f, type: 3}
-    weight: 0
+    weight: 10
+  - prefab: {fileID: 2886974666930333225, guid: 5a596cacd8dd8a640a48ee31dcade259, type: 3}
+    weight: 5
 --- !u!1001 &8447382913058350672
 PrefabInstance:
   m_ObjectHideFlags: 0

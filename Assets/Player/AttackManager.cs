@@ -13,9 +13,6 @@ public class AttackManager : MonoBehaviour
     private int currentUltimate;
 
     private Animator animator;
-
-    public static event Action<int> OnMinionDiedEvent;
-
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -24,16 +21,6 @@ public class AttackManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    void OnEnable()
-    {
-        OnMinionDiedEvent += OnMinionDeath;
-    }
-
-    void OnDisable()
-    {
-        OnMinionDiedEvent -= OnMinionDeath;
     }
 
     public void SummonWeapon(int action)
@@ -78,6 +65,8 @@ public class AttackManager : MonoBehaviour
     void PerformInsultAttack()
     {
         Debug.Log("<color=magenta>Insult Attack performed!</color>");
+
+        //call whatever you need to call from here
 
         currentUltimate = 0;
     }

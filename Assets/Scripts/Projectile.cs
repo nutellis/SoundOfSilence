@@ -7,6 +7,11 @@ public class Projectile : MonoBehaviour
 
     public float lifetime = 20f;
 
+    private GameObject owner;
+
+    private Vector3 direction = Vector3.forward;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,12 +30,28 @@ public class Projectile : MonoBehaviour
             lifetime -= Time.deltaTime;
         }
 
-        transform.position += speed * Time.deltaTime * Vector3.forward;
+        transform.position += speed * Time.deltaTime * direction;
+    }
+
+    public void Initialize(GameObject parent)
+    {
+        owner = parent;
+
+        //ugly but it works
+        if (owner.tag == "Enemy")
+        {
+            direction = -direction;
+        }
+
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Projectile"))
+        if (collision.gameObject == owner)
+        {
+            return;
+        }
+        else if (collision.gameObject.CompareTag("Projectile"))
         { 
             return;
         }

@@ -38,6 +38,14 @@ public class Boss : MonoBehaviour
         int running = 0;
         foreach (var m in minionPool)
         {
+            if (requester.aliveCount > 0)
+            {
+                ActorType type = m.prefab.GetComponent<Minion>().enemyType;
+                if(type == ActorType.Ranged)
+                {
+                    continue;
+                }
+            }
             running += Mathf.Max(0, m.weight);
             if (r < running)
             {

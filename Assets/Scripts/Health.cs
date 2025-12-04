@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     private bool isFlaggedForDestruction = false;
 
     public Action shouldDestroy;
+    public Animator animator;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class Health : MonoBehaviour
     {
         if (isFlaggedForDestruction == true) return;
 
+     //   animator.SetTrigger("Hit");
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
