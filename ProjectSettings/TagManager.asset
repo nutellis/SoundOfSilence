@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Guitar
+  - Weapons
+  - Boss
+  - Projectile
   layers:
   - Default
   - TransparentFX

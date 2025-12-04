@@ -29,10 +29,10 @@ public class PlayerAttackController : MonoBehaviour
     {
         foreach (Instrument instrument in instruments)
         {
-            if (instrument.triggerAction.action.triggered)
-            {
-                SetupAttack(instrument);
-            }
+            //if (instrument.triggerAction.action.triggered)
+            //{
+            //    SetupAttack(instrument);
+            //}
         }
 
         if (fireAttack && attackingInstrument != null)

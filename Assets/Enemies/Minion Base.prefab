@@ -118,6 +118,7 @@ MonoBehaviour:
   waypoints: []
   moveSpeed: 2.5
   reachThreshold: 0.2
+  deathCost: 10
   enemyType: 1
   animator: {fileID: 2318906439548678442}
 --- !u!114 &3818602516937665248

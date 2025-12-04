@@ -9,6 +9,7 @@ public class Minion : MonoBehaviour
     public Transform[] waypoints;
     public float moveSpeed = 2.5f;
     public float reachThreshold = 0.2f;
+    public int deathCost;
 
     int currentIndex = 0;
 
@@ -77,6 +78,11 @@ public class Minion : MonoBehaviour
 
     public void DestroySelf()
     {
+        AttackManager manager = FindFirstObjectByType<AttackManager>();
+        if (manager != null)
+        {
+            manager.OnMinionDeath(deathCost);
+        }
         onDestroy?.Invoke();
         Destroy(gameObject);
     }

@@ -45,15 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b3db2ad56f93b41915e2d296533bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  instrumentName: 
-  attackCooldown: 0.5
-  projectileSpeed: 0
-  attackDamage: 10
+  id: 12
+  instrumentName: Guitar
+  attackCooldown: 1
+  projectileSpeed: 10
+  attackDamage: 25
   attackRange: 0.5
   attackRate: 0
-  triggerAction: {fileID: 0}
-  projectileSpawn: {fileID: 0}
+  projectilePosition: {fileID: 0}
+  projectileSpawn: {fileID: 2984176366673589958, guid: 38f8e17ae149ac2459c45b53c8f92d73, type: 3}
 --- !u!1001 &8598604498012557941
 PrefabInstance:
   m_ObjectHideFlags: 0

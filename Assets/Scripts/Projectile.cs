@@ -25,16 +25,28 @@ public class Projectile : MonoBehaviour
             lifetime -= Time.deltaTime;
         }
 
-        transform.position += speed * Time.deltaTime * transform.forward;
+        transform.position += speed * Time.deltaTime * Vector3.forward;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Projectile collided with " + collision.gameObject.name);
-        if (collision.gameObject.TryGetComponent<Health>(out var health))
-        {
-           health.TakeDamage(damage);
+        if (collision.gameObject.CompareTag("Projectile"))
+        { 
+            return;
         }
-        Destroy(gameObject);
+        else if (collision.gameObject.CompareTag("Boss"))
+        {
+            Destroy(gameObject);
+            return;
+        } 
+        else
+        {
+            Debug.Log("Projectile collided with " + collision.gameObject.name);
+            if (collision.gameObject.TryGetComponent<Health>(out var health))
+            {
+                health.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
     }
 }

@@ -23,6 +23,9 @@ public class PlayerLaneController : MonoBehaviour
 
     private Rigidbody rb;
 
+    private float pitch = 0f;
+    private float yaw = 0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -85,14 +88,25 @@ public class PlayerLaneController : MonoBehaviour
     public void OnMouseX(InputAction.CallbackContext context)
     {
         float deltaX = context.ReadValue<float>() * xSensitivity;
-        transform.Rotate(0f, deltaX, 0f);
+        yaw += deltaX;
+        yaw = Mathf.Clamp(yaw, -90f, 90f);
+        // Apply rotation using AngleAxis
+        Quaternion yawRotation = Quaternion.AngleAxis(yaw, Vector3.up);
+        Quaternion pitchRotation = Quaternion.AngleAxis(pitch, Vector3.right);
+
+        cameraTransform.localRotation = yawRotation * pitchRotation;
     }
 
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-        Vector3 newRotation = cameraTransform.rotation.eulerAngles + new Vector3(deltaY, 0f, 0f);
-        cameraTransform.rotation = Quaternion.Euler(newRotation);
+        pitch += deltaY; 
+        pitch = Mathf.Clamp(pitch, -85f, 85f);
+
+        Quaternion yawRotation = Quaternion.AngleAxis(yaw, Vector3.up);
+        Quaternion pitchRotation = Quaternion.AngleAxis(pitch, Vector3.right);
+
+        cameraTransform.localRotation = yawRotation * pitchRotation;
     }
 
     public void OnLaneMovement(InputAction.CallbackContext context)

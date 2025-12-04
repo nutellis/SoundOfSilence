@@ -18,6 +18,18 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
 
         modelAnimator = GetComponentInChildren<Animator>();
+
+
+        // hide all weapons
+        var instruments = GetComponentsInChildren<Instrument>();
+        if(instruments.Length > 0)
+        {
+            foreach (var weapon in instruments)
+            {
+                weapon.gameObject.SetActive(false);
+            }
+        }
+
     }
 
     void Update()

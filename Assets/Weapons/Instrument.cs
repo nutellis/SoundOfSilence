@@ -12,8 +12,8 @@ public class Instrument : MonoBehaviour
     public float attackRange = 0.5f;
 
     public float attackRate;
-    
-    public InputActionReference triggerAction;
+
+    public Transform projectilePosition;
     public GameObject projectileSpawn;
 
     private float lastAttack = 0f;
@@ -23,14 +23,14 @@ public class Instrument : MonoBehaviour
         lastAttack = 0f;
     }
 
-    public void Fire(Transform spawn)
+    public void Fire()
     {
         if (Time.time >= lastAttack)
         {
             Debug.Log("Successfully fired " + instrumentName);
 
 
-            var projectile = Instantiate(projectileSpawn, spawn.position, spawn.rotation);
+            var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);
             var projectileData = projectile.GetComponent<Projectile>();
             projectileData.damage = attackDamage;
             projectileData.speed = projectileSpeed;

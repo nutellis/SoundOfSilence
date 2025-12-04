@@ -12,6 +12,9 @@ public class PlayerFreeController : MonoBehaviour
     public float speed;
     public float jumpForce;
 
+    private float pitch = 0f;
+    private float yaw = 0f;
+
     Vector3 movementDirection;
     Rigidbody rb;
 
@@ -47,11 +50,13 @@ public class PlayerFreeController : MonoBehaviour
     public void OnMouseY(InputAction.CallbackContext context)
     {
         float deltaY = context.ReadValue<float>() * ySensitivity;
-        deltaY = Mathf.Clamp(deltaY, -85f, 85f);
-        Quaternion pitchQuat = Quaternion.AngleAxis(deltaY, Vector3.right);
+        pitch += deltaY;
+        pitch = Mathf.Clamp(pitch, -85f, 85f);
 
-        // apply rotation
-        cameraTransform.localRotation = pitchQuat;
+        Quaternion yawRotation = Quaternion.AngleAxis(yaw, Vector3.up);
+        Quaternion pitchRotation = Quaternion.AngleAxis(pitch, Vector3.right);
+
+        cameraTransform.localRotation = yawRotation * pitchRotation;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
