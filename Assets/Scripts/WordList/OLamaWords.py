@@ -16,8 +16,10 @@ MODEL_NAME = "gemma3"  # or another installed/free model
 # Number of items to request
 REQUESTED_WORDS = 200
 
-CSV_PATH = "Assets/Scripts/WordList/words.csv"
-CSV_SAVE_PATH = "Assets/Scripts/WordList/wordsAI.csv"
+######---------------- PATH-------------------------------
+##### Change them to your local path
+CSV_PATH = "/home/smokey/Projects/soundOfSilence/words.csv"
+CSV_SAVE_PATH = "/home/smokey/Projects/soundOfSilence.csv"
 
 # ------------------------------
 # FUNCTION: ASK AI FOR WORDS
@@ -27,19 +29,28 @@ def fetch_funny_words():
     """Ask the LLM for a JSON list of words with tags."""
     
     prompt = f"""
-You are generating vocabulary for an insult-based monster game.
+You are generating insult vocabulary for a comedic, slightly edgy boss-fight game set in a church where the player roasts a corrupt priest using musical attacks and insult words.
 
-Provide {REQUESTED_WORDS} entries. 
-Each entry must be a JSON object with:
+Generate {REQUESTED_WORDS} entries.
 
-- "word": a single word or short phrase (funny, weird, or usable in humorous insults)
-- "tags": list of category tags; possible tags include:
-  "appearance", "intelligence", "hygiene", "personality", "cowardice", "smell", "misc"
+Each entry MUST be a JSON object with:
+- "word": a single word or short insult phrase (salty, spicy, sarcastic, or lightly NSFW, but WITHOUT explicit sexual content or slurs; think PG-13 insults like "sin-sniffer", "filthy cherub", "guilt-goblin", "holy fraud", "altar creeper", "shameless sermonizer")
+- "tags": list of category tags from:
+  "appearance", "intelligence", "hygiene", "personality", "cowardice", "smell", "religion", "misc"
+
+Tone requirements:
+- Humor style: irreverent, spicy, sarcastic, church-themed mockery
+- Allowed NSFW level: *mild PG-13 profanity only* (e.g., “dumbass”, “jackass”, “creep”, “bastard”), but NO explicit sexual content, NO hate speech, NO slurs.
+- Focus on insults that are ridiculous, exaggerated, weird, or theatrical.
+- Should feel like over-the-top roasting, not real-world offensive hate.
+- Atleast have 100 words
 
 Rules:
-- MUST return valid JSON ONLY (no commentary)
-- MUST be a list of objects
-- Words should be family-friendly enough for comedic insults, not obscene.
+- MUST return valid JSON ONLY.
+- NO markdown, NO code fences, NO ```json.
+- MUST be a JSON list of objects like:
+  [{{"word": "...", "tags": ["appearance"]}}, ...]
+- Words should be NSFW enough for comedic insults, not obscene.
 
 Return ONLY the JSON list.
 """
@@ -55,9 +66,26 @@ Return ONLY the JSON list.
     )
 
     data = response.json()
-    print(data)
-    # Extract answer depending on provider format
+    print(data)  # you already have this
+
     text = data["choices"][0]["message"]["content"]
+    text = text.strip()
+
+    # --- remove ```json ... ``` wrapper if present ---
+    if text.startswith("```"):
+        lines = text.splitlines()
+
+        # remove first line if it starts with ``` or ```json
+        if lines and lines[0].startswith("```"):
+            lines = lines[1:]
+
+        # remove last line if it's ``` 
+        if lines and lines[-1].startswith("```"):
+            lines = lines[:-1]
+
+        text = "\n".join(lines).strip()
+
+    # now text should be a clean JSON list: [ {...}, {...} ]
     return json.loads(text)
 
 
@@ -87,6 +115,7 @@ def load_existing_entries():
 # ------------------------------
 
 def merge_and_save(new_words, existing):
+    
     merged = existing.copy()
 
     for entry in new_words:
