@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: puddlefoot
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 8185ed01-7c32-46db-b986-4c60edcbbfef
+  displayText: Puddlefoot
   tags:
-  - Vodka
+  - appearance
+  - awkwardness
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 6
+  goldCost: 1

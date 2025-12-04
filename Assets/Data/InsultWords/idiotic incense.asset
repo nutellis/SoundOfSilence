@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: idiotic incense
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 0b81a769-1573-474e-a0e1-74f831ba273c
+  displayText: Idiotic incense
   tags:
-  - Vodka
+  - appearance
+  - smell
   isNSFW: 0
-  baseDamage: 1
+  baseDamage: 10
   goldCost: 3

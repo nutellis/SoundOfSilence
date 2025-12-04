@@ -10,7 +10,7 @@ public static class InsultWordCsvImporter
     [MenuItem("Tools/Insults/Import InsultWords from CSV")]
     public static void ImportFromCsv()
     {
-        // 1. Let user pick the CSV file
+        // 1. Pick CSV file
         string path = EditorUtility.OpenFilePanel("Select InsultWords CSV", Application.dataPath, "csv");
         if (string.IsNullOrEmpty(path))
         {
@@ -18,58 +18,47 @@ public static class InsultWordCsvImporter
             return;
         }
 
-        // 2. Where to save the ScriptableObject assets
+        // 2. Ensure target folder exists
         string targetFolder = "Assets/Data/InsultWords";
-        if (!AssetDatabase.IsValidFolder(targetFolder))
-        {
-            // Create folder if it doesn't exist
-            string[] parts = targetFolder.Split('/');
-            string current = "Assets";
-            for (int i = 1; i < parts.Length; i++)
-            {
-                string next = current + "/" + parts[i];
-                if (!AssetDatabase.IsValidFolder(next))
-                {
-                    AssetDatabase.CreateFolder(current, parts[i]);
-                }
-                current = next;
-            }
-        }
+        EnsureFolderExists(targetFolder);
 
-        // 3. Read all lines
+        // 3. Read lines
         string[] lines = File.ReadAllLines(path);
-
-        if (lines.Length <= 1)
+        if (lines.Length == 0)
         {
-            Debug.LogWarning("CSV file seems empty or only has a header.");
+            Debug.LogWarning("CSV file is empty.");
             return;
         }
 
-        // 4. Assume first line is header
-        int startLine = 1;
-
         int createdCount = 0;
 
-        for (int i = startLine; i < lines.Length; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
             string line = lines[i].Trim();
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            // Basic CSV split by comma.
-            // NOTE: This assumes no commas inside fields.
+            // Optional: skip header if it looks like one
+            if (i == 0 && (line.ToLower().Contains("display") || line.ToLower().Contains("tags")))
+                continue;
+
             string[] cols = SplitCsvLine(line);
-            if (cols.Length < 5)
+
+            // We expect EXACTLY 4 columns:
+            // 0: id/key
+            // 1: displayText
+            // 2: tags (semicolon-separated)
+            // 3: isNSFW
+            if (cols.Length != 4)
             {
-                Debug.LogWarning($"Line {i + 1}: expected 5 columns but got {cols.Length}. Skipping.");
+                Debug.LogWarning($"Line {i + 1}: expected 4 columns but got {cols.Length}. Skipping. Line: {line}");
                 continue;
             }
 
-            string displayText = cols[0].Trim().Trim('"');
-            string tagsCell = cols[1].Trim().Trim('"');
-            string baseDamageStr = cols[2].Trim();
-            string goldCostStr = cols[3].Trim();
-            string isNSFWStr = cols[4].Trim();
+            string key = cols[0].Trim().Trim('"'); // internal key / id / file name suggestion
+            string displayText = cols[1].Trim().Trim('"');
+            string tagsCell = cols[2].Trim().Trim('"');
+            string isNSFWStr = cols[3].Trim();
 
             if (string.IsNullOrEmpty(displayText))
             {
@@ -77,49 +66,33 @@ public static class InsultWordCsvImporter
                 continue;
             }
 
-            // Parse tags (split by ';')
+            // Parse tags separated by ';'
             string[] tags = string.IsNullOrEmpty(tagsCell)
                 ? new string[0]
-                : tagsCell.Split(';').Select(t => t.Trim()).Where(t => !string.IsNullOrEmpty(t)).ToArray();
+                : tagsCell.Split(';')
+                          .Select(t => t.Trim())
+                          .Where(t => !string.IsNullOrEmpty(t))
+                          .ToArray();
 
-            // Parse ints
-            if (!int.TryParse(baseDamageStr, out int baseDamage))
-            {
-                baseDamage = 1;
-            }
-
-            if (!int.TryParse(goldCostStr, out int goldCost))
-            {
-                goldCost = 1;
-            }
-
-            // Parse bool
+            // Parse bool (True/False/true/false all work with bool.TryParse)
             bool isNSFW = false;
-            if (!bool.TryParse(isNSFWStr, out isNSFW))
-            {
-                // allow "1"/"0", "yes"/"no"
-                string lower = isNSFWStr.ToLowerInvariant();
-                isNSFW = (lower == "1" || lower == "yes" || lower == "y" || lower == "true");
-            }
+            bool.TryParse(isNSFWStr, out isNSFW);
 
-            // 5. Create the ScriptableObject asset
-            InsultWord wordAsset = ScriptableObject.CreateInstance<InsultWord>();
+            // Randomize damage and gold between 1 and 10 (inclusive)
+            int baseDamage = Random.Range(1, 11); // max is exclusive
+            int goldCost = Random.Range(1, 11);
 
-            // Try to generate a clean asset name from displayText
-            string safeName = MakeSafeFileName(displayText);
-            string assetPath = AssetDatabase.GenerateUniqueAssetPath($"{targetFolder}/{safeName}.asset");
+            // Create asset
+            CreateInsultWordAsset(
+                targetFolder,
+                suggestedName: string.IsNullOrEmpty(key) ? displayText : key,
+                displayText: displayText,
+                tags: tags,
+                baseDamage: baseDamage,
+                goldCost: goldCost,
+                isNSFW: isNSFW
+            );
 
-            // Set fields according to your current InsultWord definition
-            wordAsset.displayText = displayText;
-            wordAsset.tags = tags;
-            wordAsset.baseDamage = baseDamage;
-            wordAsset.goldCost = goldCost;
-            wordAsset.isNSFW = isNSFW;
-
-            // Set ID via your setter (or you can leave it empty and let getID() generate it lazily)
-            wordAsset.id = System.Guid.NewGuid().ToString();
-
-            AssetDatabase.CreateAsset(wordAsset, assetPath);
             createdCount++;
         }
 
@@ -129,17 +102,64 @@ public static class InsultWordCsvImporter
         Debug.Log($"CSV import complete. Created {createdCount} InsultWord assets in {targetFolder}");
     }
 
-    // Very simple CSV splitter (doesn't handle quotes with commas inside)
+    private static void EnsureFolderExists(string targetFolder)
+    {
+        if (AssetDatabase.IsValidFolder(targetFolder))
+            return;
+
+        string[] parts = targetFolder.Split('/');
+        string current = "Assets";
+        for (int i = 1; i < parts.Length; i++)
+        {
+            string next = current + "/" + parts[i];
+            if (!AssetDatabase.IsValidFolder(next))
+            {
+                AssetDatabase.CreateFolder(current, parts[i]);
+            }
+            current = next;
+        }
+    }
+
+    private static void CreateInsultWordAsset(
+        string targetFolder,
+        string suggestedName,
+        string displayText,
+        string[] tags,
+        int baseDamage,
+        int goldCost,
+        bool isNSFW)
+    {
+        InsultWord wordAsset = ScriptableObject.CreateInstance<InsultWord>();
+
+        string safeName = MakeSafeFileName(suggestedName);
+        string assetPath = AssetDatabase.GenerateUniqueAssetPath($"{targetFolder}/{safeName}.asset");
+
+        // Assuming your InsultWord fields are public like this:
+        // public string displayText;
+        // public string[] tags;
+        // public bool isNSFW;
+        // public int baseDamage;
+        // public int goldCost;
+        wordAsset.displayText = displayText;
+        wordAsset.tags = tags;
+        wordAsset.baseDamage = baseDamage;
+        wordAsset.goldCost = goldCost;
+        wordAsset.isNSFW = isNSFW;
+
+        // Set ID via your function (if you want unique GUIDs)
+        wordAsset.id = System.Guid.NewGuid().ToString();
+
+        AssetDatabase.CreateAsset(wordAsset, assetPath);
+    }
+
     private static string[] SplitCsvLine(string line)
     {
-        // Basic split by comma
-        // If you need advanced CSV parsing later, you can swap this out.
+        // Simple split by comma (no support for commas inside quotes)
         return line.Split(',');
     }
 
     private static string MakeSafeFileName(string input)
     {
-        // Remove invalid filename chars and trim
         var invalid = Path.GetInvalidFileNameChars();
         var safe = new string(input.Where(c => !invalid.Contains(c)).ToArray());
 

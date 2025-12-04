@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: overripe peach 3.0
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: b42de30c-cfe6-4132-a53a-934f451b88bf
+  displayText: Overripe Peach 3.0
   tags:
-  - Vodka
+  - smell
+  - appearance
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 3
+  goldCost: 8

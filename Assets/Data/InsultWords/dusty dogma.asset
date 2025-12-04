@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: dusty dogma
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: efa32963-6fba-4ab9-a00d-f875941b00a0
+  displayText: Dusty dogma
   tags:
-  - Vodka
+  - religion
+  - appearance
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 8
+  goldCost: 5

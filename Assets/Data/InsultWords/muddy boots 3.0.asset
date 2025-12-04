@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: muddy boots 3.0
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 4f7b49d4-2b09-4d7c-a0b3-3c79aa6b4964
+  displayText: Muddy Boots 3.0
   tags:
-  - Vodka
+  - appearance
+  - hygiene
   isNSFW: 0
   baseDamage: 1
-  goldCost: 3
+  goldCost: 6

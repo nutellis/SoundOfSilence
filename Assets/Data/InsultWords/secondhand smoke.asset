@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: secondhand smoke
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 3fbbf28e-10fa-41ce-a165-80ec3a5b0208
+  displayText: Secondhand Smoke
   tags:
-  - Vodka
+  - smell
+  - hygiene
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 4
+  goldCost: 5

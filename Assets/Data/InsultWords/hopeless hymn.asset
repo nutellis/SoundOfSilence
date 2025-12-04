@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: hopeless hymn
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 80b0b4b3-7a57-4e61-b7fc-9eb5f047f87f
+  displayText: Hopeless hymn
   tags:
-  - Vodka
+  - intelligence
+  - religion
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 7
+  goldCost: 6

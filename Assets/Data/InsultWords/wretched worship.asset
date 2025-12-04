@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: wretched worship
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: c6c513ed-eefc-466c-94ff-f4d965931e8d
+  displayText: Wretched worship
   tags:
-  - Vodka
+  - appearance
+  - personality
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 9
+  goldCost: 6

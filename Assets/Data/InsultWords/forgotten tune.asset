@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: forgotten tune
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: bad9937a-12d1-4af8-a0cc-e53b6e36fbb3
+  displayText: Forgotten Tune
   tags:
-  - Vodka
+  - intelligence
+  - personality
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 7
+  goldCost: 6

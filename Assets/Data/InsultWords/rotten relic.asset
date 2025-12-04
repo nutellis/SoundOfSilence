@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: rotten relic
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 32728bf3-fa3a-49c6-a92b-521c9ce38096
+  displayText: Rotten relic
   tags:
-  - Vodka
+  - appearance
+  - smell
   isNSFW: 0
   baseDamage: 1
-  goldCost: 3
+  goldCost: 7

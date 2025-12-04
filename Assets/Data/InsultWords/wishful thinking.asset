@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: wishful thinking
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: 24160201-e03f-4659-9a98-bcaedec14c3b
+  displayText: Wishful Thinking
   tags:
-  - Vodka
+  - personality
+  - intelligence
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 10
+  goldCost: 4

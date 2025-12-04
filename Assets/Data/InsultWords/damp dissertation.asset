@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: damp dissertation
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: a19da7a7-75d6-421d-8b9f-52645a7a035a
+  displayText: Damp dissertation
   tags:
-  - Vodka
+  - appearance
+  - smell
   isNSFW: 0
-  baseDamage: 1
-  goldCost: 3
+  baseDamage: 10
+  goldCost: 4

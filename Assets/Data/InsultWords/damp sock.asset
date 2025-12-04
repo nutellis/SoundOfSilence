@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
-  m_Name: Test1
+  m_Name: damp sock
   m_EditorClassIdentifier: 
-  id: 
-  displayText: Cyka
+  id: a3bf24f1-636a-42aa-a6d5-77a609536a91
+  displayText: Damp Sock
   tags:
-  - Vodka
+  - smell
+  - hygiene
   isNSFW: 0
-  baseDamage: 1
+  baseDamage: 5
   goldCost: 3
