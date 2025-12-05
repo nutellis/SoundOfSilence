@@ -54,8 +54,6 @@ public class TtsHelper : MonoBehaviour
         audioSource.Play();
         Debug.Log("Playing TTS audio");
     }
-
-// https://tts.maxhagman.se/api/tts?voice=larynx:southern_english_male-glow_tts&lang=en&vocoder=medium&denoiserStrength=0.005&text=<speak> <voice> <prosody rate="slow" pitch="-5%"> <emphasis level="moderate"> You <break time="150ms"/> suck you little <break time="100ms"/> twat. </emphasis> </prosody> </voice> </speak>&speakerId=&ssml=true&ssmlNumbers=true&ssmlDates=true&ssmlCurrency=true&cache=false
 }
 
 public class BypassCertificate : CertificateHandler
