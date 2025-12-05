@@ -30,7 +30,8 @@ public class TtsHelper : MonoBehaviour
     }
 
     private async void SendRequest(float denoiserStrength, string content)
-    {
+    { 
+        /*
         using (UnityWebRequest request = UnityWebRequest.Get())
         {
             // TODO: switch to this instead of the httpclient
@@ -51,7 +52,7 @@ public class TtsHelper : MonoBehaviour
             Debug.Log("Error response from tts with code " + response.StatusCode + ": " + response.StatusMessage);
             return;
         }
-
+        */
         // TODO: Read bytearray to WAV
     }
 
