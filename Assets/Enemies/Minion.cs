@@ -36,7 +36,7 @@ public class Minion : MonoBehaviour
 
         transform.forward = -Vector3.forward;
 
-        Health health = GetComponent<Health>();
+        MinionHealth health = GetComponent<MinionHealth>();
         if(health != null)
         {
             health.shouldDestroy += AnimateDeath;
@@ -80,7 +80,7 @@ public class Minion : MonoBehaviour
         Player player = FindFirstObjectByType<Player>();
         if (player != null)
         {
-            player.GetComponent<Health>().TakeDamage(explosionDmg);
+            player.GetComponent<PlayerHealth>().TakeDamage(explosionDmg);
         }
 
         Die();

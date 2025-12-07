@@ -66,6 +66,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnLoop()
     {
+        boss.animator.SetBool("isSpawning", true);
         while (spawning && (maxTotalSpawns <= 0 || totalSpawned < maxTotalSpawns))
         {
             float wait = Random.Range(spawnIntervalMin, spawnIntervalMax);
@@ -108,6 +109,7 @@ public class Spawner : MonoBehaviour
                 break;
             }
         }
+        boss.animator.SetBool("isSpawning", false);
     }
 
     // helper to force spawn now

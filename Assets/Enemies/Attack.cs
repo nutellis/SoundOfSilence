@@ -79,7 +79,7 @@ public class Attack : MonoBehaviour
 
         Debug.Log("Enemy attacks player for " + attackDamage + " damage!");
 
-        player.GetComponent<Health>().TakeDamage(attackDamage);
+        player.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
 
         state.isAttacking = false;
         state.isWalking = true;

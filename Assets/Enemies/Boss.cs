@@ -12,13 +12,15 @@ public class WeightedMinion
 
 public class Boss : MonoBehaviour
 {
+    private bool isSpawning = false;
+    public Animator animator;
+
     [Header("Minions the boss controls")]
     public List<WeightedMinion> minionPool = new List<WeightedMinion>();
 
     // (boss can auto-call spawners or do other behavior on start)
     public void OnBattleStarted(Spawner[] spawners)
     {
-        // example: spawn one minion from each spawner at battle start
         foreach (var s in spawners)
         {
             s.SpawnNow();

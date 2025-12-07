@@ -63,11 +63,14 @@ public class Projectile : MonoBehaviour
         else
         {
             Debug.Log("Projectile collided with " + collision.gameObject.name);
-            if (collision.gameObject.TryGetComponent<Health>(out var health))
+            if (collision.gameObject.TryGetComponent<MinionHealth>(out var health))
             {
                 health.TakeDamage(damage);
+            } else if (collision.gameObject.TryGetComponent<PlayerHealth>(out var playerHealth))
+            {
+                playerHealth.TakeDamage(damage);
             }
-            Destroy(gameObject);
+                Destroy(gameObject);
         }
     }
 }

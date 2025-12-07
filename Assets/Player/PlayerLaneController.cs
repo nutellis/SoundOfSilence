@@ -12,6 +12,7 @@ public class PlayerLaneController : MonoBehaviour
 
 
     [Header("Lane Settings")]
+    public Transform battleArea;
     public Transform[] lanePositions; // 0 = Left, 1 = Center, 2 = Right
     public float laneMoveSpeed = 10f;
 
@@ -53,18 +54,9 @@ public class PlayerLaneController : MonoBehaviour
         var laneTransform = lanePositions[currentLaneIndex];
         if (laneTransform == null)
             return;
-
-        Vector3 targetPos = new Vector3(
-            laneTransform.position.x,
-            transform.position.y,
-            transform.position.z
-        );
-
-        Vector3 newPos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * laneMoveSpeed);
-        rb.MovePosition(newPos);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (lanePositions == null || lanePositions.Length == 0)
             return;
@@ -76,13 +68,21 @@ public class PlayerLaneController : MonoBehaviour
         if (laneTransform == null)
             return;
 
+        float targetX = battleArea.position.x + laneTransform.position.x;
+
+        Vector3 currentPos = rb.position;
         Vector3 targetPos = new Vector3(
-            laneTransform.position.x,
-            transform.position.y,
-            transform.position.z
+            targetX,
+            currentPos.y,   
+            currentPos.z
         );
 
-        Vector3 newPos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * laneMoveSpeed);
+        Vector3 newPos = Vector3.Lerp(
+            currentPos,
+            targetPos,
+            Time.fixedDeltaTime * laneMoveSpeed
+        );
+
         rb.MovePosition(newPos);
     }
     public void OnMouseX(InputAction.CallbackContext context)
