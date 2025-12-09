@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Entities;
 using UnityEngine;
 
 public class InsultBuilder : MonoBehaviour
@@ -9,23 +8,29 @@ public class InsultBuilder : MonoBehaviour
     [SerializeField] private PlayerInsultInventory playerInventory;
 
     [Header("Settings")]
-    [SerializeField] private int maxWordsPerInsult = 1;   // your "word holders"
+    [SerializeField] private int maxWordsPerInsult = 1;   // current word limit
+    [SerializeField] private int maxWordsCap = 5;         // hard cap for upgrades
 
     private List<InsultWord> currentWords = new List<InsultWord>();
 
     public IReadOnlyList<InsultWord> CurrentWords => currentWords;
     public int MaxWordsPerInsult => maxWordsPerInsult;
+    public PlayerInsultInventory PlayerInventory => playerInventory;
 
     public bool TryAddWord(InsultWord word)
     {
         if (word == null)
-        {
             return false;
-        }
 
         if (currentWords.Count >= maxWordsPerInsult)
         {
             Debug.Log("Cannot add more words: reached limit.");
+            return false;
+        }
+
+        if (playerInventory == null || playerInventory.OwnedWords == null)
+        {
+            Debug.LogWarning("PlayerInsultInventory not set or empty.");
             return false;
         }
 
@@ -35,8 +40,8 @@ public class InsultBuilder : MonoBehaviour
             return false;
         }
 
-        // If you want to have duplicate words in the same insult, remove this check
-        if (currentWords.Contains(word) == true)
+        // If you want duplicates, remove this check
+        if (currentWords.Contains(word))
         {
             Debug.Log("Cannot add word: word already in the current insult.");
             return false;
@@ -46,31 +51,57 @@ public class InsultBuilder : MonoBehaviour
         return true;
     }
 
-    // Call this to remove a specific word from the insult
     public void RemoveWord(InsultWord word)
     {
         if (word == null) return;
         currentWords.Remove(word);
     }
 
-    // Call this when you want to start building a fresh insult
     public void ClearInsult()
     {
         currentWords.Clear();
     }
 
-    // This returns the final insult text,
     public string GetInsultText()
     {
         return string.Join(" ", currentWords.Select(w => w.displayText));
     }
 
-    // Later you can call this from merchant or upgrades
-    // There is no Maximum on the words
     public void IncreaseMaxWords(int amount)
     {
         maxWordsPerInsult += amount;
         if (maxWordsPerInsult < 1)
             maxWordsPerInsult = 1;
+
+        if (maxWordsPerInsult > maxWordsCap)
+            maxWordsPerInsult = maxWordsCap;
+    }
+
+    // ---- extra helpers for damage & gold ----
+
+    public int GetTotalDamage()
+    {
+        return currentWords.Sum(w => w.baseDamage);
+    }
+
+    public int GetTotalGoldCost()
+    {
+        return currentWords.Sum(w => w.goldCost);
+    }
+
+    public bool BuildInsult(out string text, out int totalDamage, out int totalGold)
+    {
+        if (currentWords.Count == 0)
+        {
+            text = null;
+            totalDamage = 0;
+            totalGold = 0;
+            return false;
+        }
+
+        text = GetInsultText();
+        totalDamage = GetTotalDamage();
+        totalGold = GetTotalGoldCost();
+        return true;
     }
 }
