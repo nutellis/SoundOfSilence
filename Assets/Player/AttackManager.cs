@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AttackManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class AttackManager : MonoBehaviour
 
     public int ultimateMeter;
 
-    private int currentUltimate;
+    private int currentUltimate = 50;
 
     private Animator animator;
     void Start()
@@ -67,6 +68,14 @@ public class AttackManager : MonoBehaviour
         Debug.Log("<color=magenta>Insult Attack performed!</color>");
 
         //call whatever you need to call from here
+
+        InsultBuilderRuntimeUI insultBuilder = GetComponentInChildren<InsultBuilderRuntimeUI>();
+        if(insultBuilder != null )
+        {
+            insultBuilder.StartInsultBuilder();
+        }
+        Time.timeScale = 0.0f;
+
 
         currentUltimate = 0;
     }

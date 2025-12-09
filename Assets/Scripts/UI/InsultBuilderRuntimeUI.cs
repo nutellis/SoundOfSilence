@@ -15,9 +15,6 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
     public Transform ownedWordsRow;
     public Button fireButton;
 
-    [Header("Input")]
-    public KeyCode toggleKey = KeyCode.R;
-
     private void Start()
     {
         if (insultBuilder == null)
@@ -44,8 +41,12 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(toggleKey))
-            panel.SetActive(!panel.activeSelf);
+
+    }
+
+    public void StartInsultBuilder()
+    {
+        panel.SetActive(!panel.activeSelf);
     }
 
     private void BuildOwnedWordButtons()
@@ -57,14 +58,14 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
         {
             GameObject btnGO = new GameObject(w.displayText);
             btnGO.transform.SetParent(ownedWordsRow);
-
+          //  btnGO.AddComponent<CanvasRenderer>();
             Button btn = btnGO.AddComponent<Button>();
-            Image img = btnGO.AddComponent<Image>();
-            img.color = new Color(1, 1, 1, 0.3f);
+           // Image img = btnGO.AddComponent<Image>();
+           // img.color = new Color(1, 1, 1, 0.3f);
 
             Text label = btnGO.AddComponent<Text>();
             label.text = w.displayText;
-            label.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             label.color = Color.black;
             label.alignment = TextAnchor.MiddleCenter;
 

@@ -54837,6 +54837,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 6090471808847171297, guid: f3f3cf471b810574ebeec905ebf50be9, type: 3}
+      propertyPath: maxHealth
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 6723573908850700956, guid: f3f3cf471b810574ebeec905ebf50be9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.19
