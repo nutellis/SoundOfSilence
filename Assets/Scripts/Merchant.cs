@@ -1,63 +1,147 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Merchant : MonoBehaviour
 {
-    [Header("Shop Stock")]
-    [SerializeField] private List<InsultWord> stock = new();   // words the merchant sells
-
     [Header("References")]
     [SerializeField] private PlayerInsultInventory playerInventory;
+    [SerializeField] private PlayerWallet playerWallet;
+    [SerializeField] private InsultBuilder insultBuilder;
 
-    [Header("TEMP: Gold for testing")]
-    [SerializeField] private int playerGold = 20;              // later connect to real currency system
+    [Header("Shop Stock")]
+    [SerializeField] private List<ShopItem> insultWordStock = new();
 
-    public int PlayerGold => playerGold;
+    [Header("Upgrades")]
+    [SerializeField] private int slotUpgradePrice = 20; // gold cost per extra slot
 
-    public bool TryBuyWord(InsultWord word)
+    [Serializable]
+    public class ShopItem
     {
-        if (word == null) return false;
-        if (!stock.Contains(word)) return false;
-        int cost = word.goldCost;
+        public InsultWord word;
+        public int priceOverride = -1;  // if < 0, use word.goldCost
 
-        if (playerGold < cost)
+        public int GetPrice()
         {
-            Debug.Log("Not enough gold to buy: " + word.displayText);
+            if (word == null) return 0;
+            return priceOverride > 0 ? priceOverride : word.goldCost;
+        }
+    }
+
+    private void Awake()
+    {
+        // Try auto-wire if not set
+        if (playerInventory == null)
+            playerInventory = FindObjectOfType<PlayerInsultInventory>();
+
+        if (playerWallet == null)
+            playerWallet = FindObjectOfType<PlayerWallet>();
+
+        if (insultBuilder == null)
+            insultBuilder = FindObjectOfType<InsultBuilder>();
+    }
+
+    // --------------- PUBLIC API ---------------
+
+    /// <summary>
+    /// Try to buy a specific insult word from the merchant.
+    /// Returns true on success, false if cannot (no gold / already own / null).
+    /// </summary>
+    public bool TryBuyInsultWord(InsultWord word)
+    {
+        if (word == null)
+        {
+            Debug.LogWarning("Merchant: Tried to buy null word.");
+            return false;
+        }
+
+        if (playerInventory == null || playerWallet == null)
+        {
+            Debug.LogError("Merchant: Missing playerInventory or playerWallet reference.");
+            return false;
+        }
+
+        // Already owned?
+        if (playerInventory.HasWord(word))
+        {
+            Debug.Log("Merchant: Player already owns this word.");
+            return false;
+        }
+
+        // Find this word in stock to get price
+        ShopItem item = insultWordStock.Find(i => i.word == word);
+        if (item == null)
+        {
+            Debug.LogWarning("Merchant: That word is not in my stock.");
+            return false;
+        }
+
+        int price = item.GetPrice();
+
+        if (!playerWallet.CanAfford(price))
+        {
+            Debug.Log("Merchant: Player cannot afford this word.");
+            return false;
+        }
+
+        // Spend & add to inventory
+        bool spent = playerWallet.Spend(price);
+        if (!spent)
+        {
+            Debug.LogError("Merchant: Spend failed even though CanAfford was true.");
             return false;
         }
 
         bool added = playerInventory.AddWord(word);
         if (!added)
         {
-            Debug.Log("Could not add word to inventory (maybe duplicate?): " + word.displayText);
+            Debug.LogWarning("Merchant: Could not add word to inventory (maybe duplicate blocked?). Refunding.");
+            playerWallet.AddGold(price); // refund
             return false;
         }
 
-        playerGold -= cost;
-        Debug.Log($"Bought '{word.displayText}' for {cost} gold. Remaining: {playerGold}");
-        RemoveWordFromStock(word);
-
+        Debug.Log($"Merchant: Player bought word '{word.displayText}' for {price} gold.");
         return true;
     }
 
-    public IReadOnlyList<InsultWord> GetStock()
+    /// <summary>
+    /// Try to buy a +1 insult slot upgrade for the player.
+    /// </summary>
+    public bool TryBuySlotUpgrade()
     {
-        return stock;
-    }
-
-    // If We want to remove a word from stock after purchase
-    public void RemoveWordFromStock(InsultWord word)
-    {
-        stock.Remove(word);
-    }
-
-
-    private void Start()
-    {
-        // TEMP TEST: try to buy the first word in stock when the game starts.
-        if (stock.Count > 0)
+        if (insultBuilder == null || playerWallet == null)
         {
-            TryBuyWord(stock[0]);
+            Debug.LogError("Merchant: Missing insultBuilder or playerWallet reference.");
+            return false;
         }
+
+        if (!playerWallet.CanAfford(slotUpgradePrice))
+        {
+            Debug.Log("Merchant: Player cannot afford slot upgrade.");
+            return false;
+        }
+
+        bool spent = playerWallet.Spend(slotUpgradePrice);
+        if (!spent)
+        {
+            Debug.LogError("Merchant: Spend failed even though CanAfford was true (slot upgrade).");
+            return false;
+        }
+
+        insultBuilder.IncreaseMaxWords(1);
+
+        Debug.Log($"Merchant: Player bought +1 insult slot for {slotUpgradePrice} gold. New max = {insultBuilder.MaxWordsPerInsult}");
+        return true;
+    }
+
+    // --------------- HELPERS FOR UI ---------------
+
+    public IReadOnlyList<ShopItem> GetStock() => insultWordStock;
+
+    public int GetPriceForWord(InsultWord word)
+    {
+        if (word == null) return 0;
+        ShopItem item = insultWordStock.Find(i => i.word == word);
+        return item != null ? item.GetPrice() : 0;
     }
 }
