@@ -45,7 +45,7 @@ public class AttackManager : MonoBehaviour
 
             foreach (var weapon in instruments)
             {
-                weapon.gameObject.SetActive(weapon.id == activeWeapon.id);
+                weapon.gameObject.SetActive(weapon.id == activeWeapon.id);                
             }
 
             //this is where we animate each weapon summon.

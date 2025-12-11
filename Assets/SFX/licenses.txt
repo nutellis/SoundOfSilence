@@ -4,3 +4,4 @@ loss_long.wav = Jingle_Lose_00.wav by LittleRobotSoundFactory -- https://freesou
 battle_begin.wav = 00704 brass fanfare 6.wav by Robinhood76 -- https://freesound.org/s/64425/ -- License: Attribution NonCommercial 4.0
 Fire Burst.wav by SilverIllusionist -- https://freesound.org/s/472688/ -- License: Attribution 4.0
 explosion.wav by newagesoup -- https://freesound.org/s/347312/ -- License: Attribution 4.0
+piano sounds = C4_Major_Scale_Piano.wav by digifishmusic -- https://freesound.org/s/94812/ -- License: Attribution 4.0

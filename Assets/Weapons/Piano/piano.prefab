@@ -944,7 +944,7 @@ GameObject:
   - component: {fileID: 6803884808800400476}
   - component: {fileID: 1828799691282248196}
   m_Layer: 0
-  m_Name: Piano
+  m_Name: piano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,6 +988,14 @@ MonoBehaviour:
   attackRate: 0
   projectilePosition: {fileID: 0}
   projectileSpawn: {fileID: 2984176366673589958, guid: 38f8e17ae149ac2459c45b53c8f92d73, type: 3}
+  instrumentSounds:
+  - {fileID: 8300000, guid: e4d248268b7f51c4f987946bd2fb5654, type: 3}
+  - {fileID: 8300000, guid: 1c280b081fa461a428fe99ea2f3899a7, type: 3}
+  - {fileID: 8300000, guid: 2d45476eb81061d4f90a0ed70ca388fa, type: 3}
+  - {fileID: 8300000, guid: 26fa7a94cca856f4ca4feaa70901f155, type: 3}
+  - {fileID: 8300000, guid: 2ab19b40fe255534a88c6762ab2f7343, type: 3}
+  - {fileID: 8300000, guid: a3722b6abc7956b4bb9bc8fdbab1569e, type: 3}
+  instrumentVolume: 0.8
 --- !u!1 &6201297457144737323
 GameObject:
   m_ObjectHideFlags: 0

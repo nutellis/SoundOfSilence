@@ -43,8 +43,6 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float enemyFootstepVolume = 0.5f;
     public float enemyFootstepInterval = 0.6f; // Time between enemy footsteps
 
-    [Header("Instrument Sound Volume")]
-    [Range(0f, 1f)] public float instrumentSoundVolume = 0.8f;
 
     [Header("Audio Sources")]
     private AudioSource musicSource;
@@ -248,11 +246,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayInstrumentSound(AudioClip instrumentClip)
+    public void PlayInstrumentSound(AudioClip instrumentClip, float volume)
     {
         if (instrumentClip != null && instrumentSoundSource != null)
         {
-            instrumentSoundSource.PlayOneShot(instrumentClip, instrumentSoundVolume);
+            instrumentSoundSource.PlayOneShot(instrumentClip, volume);
         }
     }
 

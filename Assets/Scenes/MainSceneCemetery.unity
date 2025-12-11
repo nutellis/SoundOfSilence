@@ -55132,6 +55132,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5549610403362782803, guid: 4487e997e391dad47b80d5d4a53c72e0, type: 3}
+      propertyPath: jumpSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 031b28b8c8d936f409c23ecaee1bb7f3, type: 3}
     - target: {fileID: 5939959472452712554, guid: 4487e997e391dad47b80d5d4a53c72e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 377.68906

@@ -16,8 +16,9 @@ public class Instrument : MonoBehaviour
     public Transform projectilePosition;
     public GameObject projectileSpawn;
 
-    [Header("Instrument Sound")]
-    public AudioClip instrumentSound;
+    [Header("Instrument Sounds")]
+    public AudioClip[] instrumentSounds;
+    [Range(0f, 1f)] public float instrumentVolume = 0.8f;
 
     private float lastAttack = 0f;
 
@@ -32,10 +33,11 @@ public class Instrument : MonoBehaviour
         {
             Debug.Log("Successfully fired " + instrumentName);
 
-            // Play instrument sound effect via AudioManager
-            if (AudioManager.Instance != null && instrumentSound != null)
+            // Play random instrument sound effect via AudioManager
+            if (AudioManager.Instance != null && instrumentSounds != null && instrumentSounds.Length > 0)
             {
-                AudioManager.Instance.PlayInstrumentSound(instrumentSound);
+                int randomIndex = UnityEngine.Random.Range(0, instrumentSounds.Length);
+                AudioManager.Instance.PlayInstrumentSound(instrumentSounds[randomIndex], instrumentVolume);
             }
 
             var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);

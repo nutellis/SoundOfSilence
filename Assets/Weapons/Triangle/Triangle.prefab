@@ -54,8 +54,12 @@ MonoBehaviour:
   attackRate: 0
   projectilePosition: {fileID: 0}
   projectileSpawn: {fileID: 2984176366673589958, guid: 38f8e17ae149ac2459c45b53c8f92d73, type: 3}
-  instrumentMusic: {fileID: 8300000, guid: c6099febfd9fc774c8925e85fee1f01e, type: 3}
-  musicSegmentDuration: 0.5
+  instrumentSounds:
+  - {fileID: 8300000, guid: 37c3d56d5dece5f47951bbf257b72a1f, type: 3}
+  - {fileID: 8300000, guid: e2a76fd026d36a348aedb6f8d4bf3154, type: 3}
+  - {fileID: 8300000, guid: 007f721961ec50f4698bd2ee09587115, type: 3}
+  - {fileID: 8300000, guid: 6908d842d3ec6f14a8c1bbf0407c4920, type: 3}
+  instrumentVolume: 0.316
 --- !u!1001 &428497012925174475
 PrefabInstance:
   m_ObjectHideFlags: 0
