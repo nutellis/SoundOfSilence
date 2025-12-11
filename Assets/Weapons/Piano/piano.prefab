@@ -981,8 +981,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 20
   instrumentName: Piano
-  attackCooldown: 2
-  projectileSpeed: 15
+  attackCooldown: 1.8
+  projectileSpeed: 12
   attackDamage: 50
   attackRange: 0.5
   attackRate: 0

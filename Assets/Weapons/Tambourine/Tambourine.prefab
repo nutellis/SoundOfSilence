@@ -48,8 +48,8 @@ MonoBehaviour:
   id: 75
   instrumentName: Tambourine
   attackCooldown: 0.7
-  projectileSpeed: 10
-  attackDamage: 10
+  projectileSpeed: 9
+  attackDamage: 15
   attackRange: 0.5
   attackRate: 0
   projectilePosition: {fileID: 0}

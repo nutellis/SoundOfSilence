@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.InputSystem;
 
 public class InsultBuilderRuntimeUI : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
     GameObject bossObject;
 
     public TtsHelper sound;
+
+    PlayerInput input;
 
     private void Start()
     {
@@ -42,11 +45,13 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
     }
 
-    public void StartInsultBuilder()
+    public void StartInsultBuilder(PlayerInput inInput)
     {
         Cursor.lockState = CursorLockMode.None;
 
         panel.SetActive(true);
+
+        input = inInput;
     }
 
     private void BuildOwnedWordButtons()
@@ -141,7 +146,7 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
             TtsHelper sound = GetComponent<TtsHelper>();
             if (sound)
             {
-                sound.PlayInsult(insult);
+               StartCoroutine(sound.PlayInsult(insult));
             }
 
             bossObject = GameObject.FindWithTag("Boss");
@@ -156,6 +161,7 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
             insultBuilder.ClearInsult();
             RefreshSlots();
             panel.SetActive(false);
+            input.ActivateInput();
         }
         else
         {

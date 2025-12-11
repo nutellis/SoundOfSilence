@@ -76,6 +76,7 @@ public class InsultBuilder : MonoBehaviour
     public void ClearInsult()
     {
         currentWords.Clear();
+        indexOfLastWord = 0;
     }
 
     public string GetInsultText()

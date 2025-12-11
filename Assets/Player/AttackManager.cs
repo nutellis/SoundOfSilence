@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
 public class AttackManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class AttackManager : MonoBehaviour
     private Animator animator;
 
     public InsultBuilderRuntimeUI insultBuilder;
+
+    public PlayerInput input;
 
     void Start()
     {
@@ -73,7 +76,8 @@ public class AttackManager : MonoBehaviour
         //call whatever you need to call from here
         if(insultBuilder != null )
         {
-            insultBuilder.StartInsultBuilder();
+            insultBuilder.StartInsultBuilder(input);
+            input.DeactivateInput();
         }
         currentUltimate = 0;
     }
