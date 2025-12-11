@@ -88,3 +88,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 29cd9227e40c4ec4399fbadc9ba1cee6, type: 3}
   enemyFootstepVolume: 0.348
   enemyFootstepInterval: 0.6
+  instrumentMusicVolume: 0.7
+  backgroundMusicDuckingVolume: 0

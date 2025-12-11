@@ -43,13 +43,19 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float enemyFootstepVolume = 0.5f;
     public float enemyFootstepInterval = 0.6f; // Time between enemy footsteps
 
+    [Header("Instrument Music Volume")]
+    [Range(0f, 1f)] public float instrumentMusicVolume = 0.7f;
+    [Range(0f, 1f)] public float backgroundMusicDuckingVolume = 0.2f; // Volume reduction when instrument plays
+
     [Header("Audio Sources")]
     private AudioSource musicSource;
     private AudioSource sfxSource;
     private AudioSource footstepSource;
+    private AudioSource instrumentMusicSource;
 
     private bool isInBattle = false;
     private float footstepTimer = 0f;
+    private bool isInstrumentPlaying = false;
 
     void Awake()
     {
@@ -82,6 +88,11 @@ public class AudioManager : MonoBehaviour
         footstepSource = gameObject.AddComponent<AudioSource>();
         footstepSource.loop = false;
         footstepSource.playOnAwake = false;
+
+        // Create instrument music source
+        instrumentMusicSource = gameObject.AddComponent<AudioSource>();
+        instrumentMusicSource.loop = false;
+        instrumentMusicSource.playOnAwake = false;
     }
 
     void Start()
@@ -236,6 +247,54 @@ public class AudioManager : MonoBehaviour
             // Play random enemy footstep sound with distance-adjusted volume
             int randomIndex = Random.Range(0, enemyFootstepSounds.Length);
             footstepSource.PlayOneShot(enemyFootstepSounds[randomIndex], enemyFootstepVolume * volumeMultiplier);
+        }
+    }
+
+    public void DuckBackgroundMusic()
+    {
+        // Lower background music volume when instrument is equipped
+        if (isInBattle && musicSource.isPlaying)
+        {
+            musicSource.volume = fightMusicVolume * backgroundMusicDuckingVolume;
+        }
+        else if (!isInBattle && musicSource.isPlaying)
+        {
+            musicSource.volume = backgroundMusicVolume * backgroundMusicDuckingVolume;
+        }
+        isInstrumentPlaying = true;
+    }
+
+    public void RestoreBackgroundMusic()
+    {
+        // Restore background music volume when instrument is dismissed
+        if (isInBattle && musicSource.isPlaying)
+        {
+            musicSource.volume = fightMusicVolume;
+        }
+        else if (!isInBattle && musicSource.isPlaying)
+        {
+            musicSource.volume = backgroundMusicVolume;
+        }
+        isInstrumentPlaying = false;
+    }
+
+    public void PlayInstrumentMusic(AudioClip musicClip, float startTime, float duration)
+    {
+        if (musicClip != null && instrumentMusicSource != null)
+        {
+            // Stop any currently playing instrument music
+            instrumentMusicSource.Stop();
+
+            // Set the clip and start position
+            instrumentMusicSource.clip = musicClip;
+            instrumentMusicSource.volume = instrumentMusicVolume;
+            instrumentMusicSource.time = startTime;
+
+            // Play the clip
+            instrumentMusicSource.Play();
+
+            // Schedule stop after duration
+            instrumentMusicSource.SetScheduledEndTime(AudioSettings.dspTime + duration);
         }
     }
 
