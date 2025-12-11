@@ -32,11 +32,19 @@ public class PlayerFreeController : MonoBehaviour
     {
         rb.MovePosition(transform.position + transform.TransformDirection(movementDirection) * speed * Time.deltaTime);
 
+        bool isWalking = movementDirection.magnitude > 0.1f;
+
         if (modelAnimator != null)
         {
-            modelAnimator.SetBool("isWalking", movementDirection.magnitude > 0.1f);
+            modelAnimator.SetBool("isWalking", isWalking);
             modelAnimator.SetFloat("Forward", movementDirection.z);
             modelAnimator.SetFloat("Right", movementDirection.x);
+        }
+
+        // Update footstep sounds
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.UpdateFootsteps(isWalking && !isJumping, Time.deltaTime);
         }
     }
 
@@ -80,6 +88,11 @@ public class PlayerFreeController : MonoBehaviour
         // Simple ground check
         if (collision.contacts[0].normal.y > 0.5f)
         {
+            // Play landing sound only if we were jumping
+            if (isJumping && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayJump();
+            }
             isJumping = false;
         }
     }

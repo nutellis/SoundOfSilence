@@ -55,6 +55,12 @@ public class Attack : MonoBehaviour
         Debug.Log("Enemy attacks player for " + attackDamage + " damage!");
         // Throw projectile towards player
 
+        // Play fire crackle sound effect
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayFireCrackle();
+        }
+
         var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);
         projectile.GameObject().GetComponent<Projectile>().Initialize(gameObject);
 

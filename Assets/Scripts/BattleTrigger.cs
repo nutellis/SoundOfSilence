@@ -39,13 +39,18 @@ public class BattleTrigger : MonoBehaviour
     void StartBattle(GameObject player)
     {
         Debug.Log("Initiating Battle");
+
+        // Start battle music and play battle begin SFX
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StartBattle();
+        }
+
         // limit player movement
         if (lockPlayerMovement)
         {
             var playerScript = player.GetComponent<Player>();
             playerScript.switchToBattle();
-
-            // TODO: battle UI, music, etc.
         }
 
         // spawn boss

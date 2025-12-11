@@ -54,6 +54,12 @@ MonoBehaviour:
   attackRate: 0
   projectilePosition: {fileID: 0}
   projectileSpawn: {fileID: 2984176366673589958, guid: 38f8e17ae149ac2459c45b53c8f92d73, type: 3}
+  instrumentSounds:
+  - {fileID: 8300000, guid: 1d9b3ff8420de744aa80804051d8e411, type: 3}
+  - {fileID: 8300000, guid: 5f98a1b0c598c424d85dd2dfe17b2876, type: 3}
+  - {fileID: 8300000, guid: 8daafed0c73c0944a9498be978b6c562, type: 3}
+  - {fileID: 8300000, guid: c6fd2b74390378d49bc2d4902b998122, type: 3}
+  instrumentVolume: 0.251
 --- !u!1001 &8598604498012557941
 PrefabInstance:
   m_ObjectHideFlags: 0
