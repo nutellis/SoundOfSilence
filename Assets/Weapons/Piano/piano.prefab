@@ -995,7 +995,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 26fa7a94cca856f4ca4feaa70901f155, type: 3}
   - {fileID: 8300000, guid: 2ab19b40fe255534a88c6762ab2f7343, type: 3}
   - {fileID: 8300000, guid: a3722b6abc7956b4bb9bc8fdbab1569e, type: 3}
-  instrumentVolume: 0.8
+  instrumentVolume: 0.241
 --- !u!1 &6201297457144737323
 GameObject:
   m_ObjectHideFlags: 0
