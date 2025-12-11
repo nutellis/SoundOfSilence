@@ -48,37 +48,12 @@ public class AttackManager : MonoBehaviour
                 weapon.gameObject.SetActive(weapon.id == activeWeapon.id);
             }
 
-            // Duck background music when instrument is summoned
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.DuckBackgroundMusic();
-            }
-
             //this is where we animate each weapon summon.
         }
         else
         {
             Debug.LogWarning($"<color=#FFA500>No attack found for action: {action}</color>");
         }
-    }
-
-    public void DismissWeapon()
-    {
-        // Deactivate all weapons
-        foreach (var weapon in instruments)
-        {
-            weapon.gameObject.SetActive(false);
-        }
-
-        activeWeapon = null;
-
-        // Restore background music volume
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.RestoreBackgroundMusic();
-        }
-
-        Debug.Log("<color=#00FF00>Weapon dismissed</color>");
     }
 
     public void PerformRegularAttack()

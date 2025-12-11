@@ -16,12 +16,10 @@ public class Instrument : MonoBehaviour
     public Transform projectilePosition;
     public GameObject projectileSpawn;
 
-    [Header("Instrument Music")]
-    public AudioClip instrumentMusic;
-    public float musicSegmentDuration = 0.5f; // Duration of each music segment played
+    [Header("Instrument Sound")]
+    public AudioClip instrumentSound;
 
     private float lastAttack = 0f;
-    private float currentMusicTime = 0f; // Track position in the music file
 
     public void ResetCooldown()
     {
@@ -34,20 +32,10 @@ public class Instrument : MonoBehaviour
         {
             Debug.Log("Successfully fired " + instrumentName);
 
-            // Play instrument music segment
-            if (AudioManager.Instance != null && instrumentMusic != null)
+            // Play instrument sound effect via AudioManager
+            if (AudioManager.Instance != null && instrumentSound != null)
             {
-                // Play the next segment of the instrument music
-                AudioManager.Instance.PlayInstrumentMusic(instrumentMusic, currentMusicTime, musicSegmentDuration);
-
-                // Advance the position in the music
-                currentMusicTime += musicSegmentDuration;
-
-                // Loop back to the beginning if we've reached the end
-                if (currentMusicTime >= instrumentMusic.length)
-                {
-                    currentMusicTime = 0f;
-                }
+                AudioManager.Instance.PlayInstrumentSound(instrumentSound);
             }
 
             var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);
