@@ -9,7 +9,7 @@ public class InsultWord : ScriptableObject
     // for now I just set ID to private and create a getter since no one should be able to change it
 
     public string id;
-    public string displayText;
+    public string displayText = "";
     // tags is mabey give words a flag that can be used to make combo or effective against certain type of boss
     public string[] tags;
 
@@ -17,6 +17,10 @@ public class InsultWord : ScriptableObject
 
     public int baseDamage = 1;
     public int goldCost = 3;
+
+
+    //that is soooooo bad
+    public int indexInList = -1;
 
 
 

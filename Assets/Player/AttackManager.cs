@@ -14,6 +14,9 @@ public class AttackManager : MonoBehaviour
     private int currentUltimate = 50;
 
     private Animator animator;
+
+    public InsultBuilderRuntimeUI insultBuilder;
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -68,15 +71,10 @@ public class AttackManager : MonoBehaviour
         Debug.Log("<color=magenta>Insult Attack performed!</color>");
 
         //call whatever you need to call from here
-
-        InsultBuilderRuntimeUI insultBuilder = GetComponentInChildren<InsultBuilderRuntimeUI>();
         if(insultBuilder != null )
         {
             insultBuilder.StartInsultBuilder();
         }
-        Time.timeScale = 0.0f;
-
-
         currentUltimate = 0;
     }
 

@@ -8,10 +8,13 @@ public class InsultBuilder : MonoBehaviour
     [SerializeField] private PlayerInsultInventory playerInventory;
 
     [Header("Settings")]
-    [SerializeField] private int maxWordsPerInsult = 1;   // current word limit
+    [SerializeField] private int maxWordsPerInsult = 2;   // current word limit
     [SerializeField] private int maxWordsCap = 5;         // hard cap for upgrades
 
+
     private List<InsultWord> currentWords = new List<InsultWord>();
+    int indexOfLastWord = 0;
+
 
     public IReadOnlyList<InsultWord> CurrentWords => currentWords;
     public int MaxWordsPerInsult => maxWordsPerInsult;
@@ -22,7 +25,7 @@ public class InsultBuilder : MonoBehaviour
         if (word == null)
             return false;
 
-        if (currentWords.Count >= maxWordsPerInsult)
+        if (currentWords.Count >= maxWordsPerInsult && indexOfLastWord == CurrentWords.Count())
         {
             Debug.Log("Cannot add more words: reached limit.");
             return false;
@@ -34,12 +37,6 @@ public class InsultBuilder : MonoBehaviour
             return false;
         }
 
-        if (playerInventory.OwnedWords.Contains(word) == false)
-        {
-            Debug.Log("Cannot add word: player does not own this word.");
-            return false;
-        }
-
         // If you want duplicates, remove this check
         if (currentWords.Contains(word))
         {
@@ -47,14 +44,33 @@ public class InsultBuilder : MonoBehaviour
             return false;
         }
 
-        currentWords.Add(word);
+        if(indexOfLastWord != currentWords.Count())
+        {
+            currentWords[indexOfLastWord] = word;
+            word.indexInList = indexOfLastWord;
+        } else
+        {
+            currentWords.Add(word);
+            word.indexInList = currentWords.Count() - 1;
+        }
+        indexOfLastWord = currentWords.Count();
+
         return true;
     }
 
     public void RemoveWord(InsultWord word)
     {
         if (word == null) return;
-        currentWords.Remove(word);
+
+        indexOfLastWord = word.indexInList;
+
+        InsultWord emptyInsult = new InsultWord();
+        emptyInsult.displayText = "";
+        emptyInsult.indexInList = indexOfLastWord;
+
+        currentWords[indexOfLastWord] = emptyInsult;
+        word.indexInList = -1;
+
     }
 
     public void ClearInsult()

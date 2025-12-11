@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class InsultBuilderRuntimeUI : MonoBehaviour
 {
@@ -10,10 +11,11 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
     [Header("UI Elements")]
     public GameObject panel;
-    public List<Button> slotButtons;
-    public List<Text> slotLabels;
+    public Transform currentInsult;
     public Transform ownedWordsRow;
     public Button fireButton;
+
+    GameObject bossObject;
 
     private void Start()
     {
@@ -24,13 +26,6 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
             inventory = GetComponent<PlayerInsultInventory>();
 
         panel.SetActive(false);
-
-        // Slot setup
-        for (int i = 0; i < slotButtons.Count; i++)
-        {
-            int index = i;
-            slotButtons[i].onClick.AddListener(() => OnSlotClicked(index));
-        }
 
         // Fire button
         fireButton.onClick.AddListener(OnFireClicked);
@@ -46,7 +41,10 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
     public void StartInsultBuilder()
     {
-        panel.SetActive(!panel.activeSelf);
+        Cursor.lockState = CursorLockMode.None;
+
+
+        panel.SetActive(true);
     }
 
     private void BuildOwnedWordButtons()
@@ -94,14 +92,39 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
     private void RefreshSlots()
     {
-        for (int i = 0; i < slotLabels.Count; i++)
+        foreach (Transform child in currentInsult)
+            Destroy(child.gameObject);
+
+        foreach (var w in insultBuilder.CurrentWords)
         {
-            if (i < insultBuilder.CurrentWords.Count)
-                slotLabels[i].text = insultBuilder.CurrentWords[i].displayText;
-            else
-                slotLabels[i].text = "[empty]";
+
+            GameObject btnGO = new GameObject(w.displayText);
+            btnGO = new GameObject(w.displayText);
+            btnGO.transform.SetParent(currentInsult);
+
+            Button btn = btnGO.AddComponent<Button>();
+
+            Text label = btnGO.AddComponent<Text>();
+            label.text = w.displayText;
+            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            label.color = Color.black;
+            label.alignment = TextAnchor.MiddleCenter;
+
+            btn.onClick.AddListener(() => RemoveWordFromList(w));
+
+            // Fit text inside button
+            RectTransform rt = btnGO.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(150, 40);
         }
     }
+
+    private void RemoveWordFromList(InsultWord word)
+    {
+        insultBuilder.RemoveWord(word);
+        RefreshSlots();
+    }
+
+
 
     private void OnFireClicked()
     {
@@ -112,14 +135,23 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
         if (insultBuilder.BuildInsult(out insult, out dmg, out gold))
         {
             Debug.Log($"FIRED: {insult} | Damage={dmg} | Gold={gold}");
+
+            bossObject = GameObject.FindWithTag("Boss");
+            if(bossObject)
+            {
+                bossObject.GetComponent<MinionHealth>().TakeDamage(dmg);
+
+            } else
+            {
+                Debug.Log("No boss to insult");
+            }
+            insultBuilder.ClearInsult();
+            RefreshSlots();
+            panel.SetActive(false);
         }
         else
         {
             Debug.LogWarning("No insult built.");
-        }
-
-        insultBuilder.ClearInsult();
-        RefreshSlots();
-        panel.SetActive(false);
+        }        
     }
 }
