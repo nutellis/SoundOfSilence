@@ -20,17 +20,28 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] playerDamageSounds;
     public AudioClip lossLongSFX;
     public AudioClip jumpSFX;
+    public AudioClip fireCrackleSFX;
+    public AudioClip fireBurstSFX;
+    public AudioClip explosionSFX;
 
     [Header("SFX Volume Settings (0-1)")]
     [Range(0f, 1f)] public float battleBeginVolume = 1.0f;
     [Range(0f, 1f)] public float playerDamageVolume = 0.8f;
     [Range(0f, 1f)] public float lossLongVolume = 1.0f;
     [Range(0f, 1f)] public float jumpVolume = 0.7f;
+    [Range(0f, 1f)] public float fireCrackleVolume = 0.8f;
+    [Range(0f, 1f)] public float fireBurstVolume = 0.8f;
+    [Range(0f, 1f)] public float explosionVolume = 0.9f;
 
     [Header("Footsteps")]
     public AudioClip[] footstepSounds;
     [Range(0f, 1f)] public float footstepVolume = 0.4f;
     public float footstepInterval = 0.5f; // Time between footsteps
+
+    [Header("Enemy Footsteps")]
+    public AudioClip[] enemyFootstepSounds;
+    [Range(0f, 1f)] public float enemyFootstepVolume = 0.5f;
+    public float enemyFootstepInterval = 0.6f; // Time between enemy footsteps
 
     [Header("Audio Sources")]
     private AudioSource musicSource;
@@ -186,6 +197,45 @@ public class AudioManager : MonoBehaviour
         if (jumpSFX != null)
         {
             sfxSource.PlayOneShot(jumpSFX, jumpVolume);
+        }
+    }
+
+    public void PlayFireCrackle()
+    {
+        if (fireCrackleSFX != null)
+        {
+            sfxSource.PlayOneShot(fireCrackleSFX, fireCrackleVolume);
+        }
+    }
+
+    public void PlayFireBurst()
+    {
+        if (fireBurstSFX != null)
+        {
+            sfxSource.PlayOneShot(fireBurstSFX, fireBurstVolume);
+        }
+    }
+
+    public void PlayExplosion()
+    {
+        if (explosionSFX != null)
+        {
+            sfxSource.PlayOneShot(explosionSFX, explosionVolume);
+        }
+    }
+
+    public void PlayEnemyFootstep(Vector3 enemyPosition, Vector3 playerPosition)
+    {
+        if (enemyFootstepSounds != null && enemyFootstepSounds.Length > 0)
+        {
+            // Calculate distance-based volume (closer = louder)
+            float distance = Vector3.Distance(enemyPosition, playerPosition);
+            float maxDistance = 20f; // Maximum distance to hear footsteps
+            float volumeMultiplier = Mathf.Clamp01(1f - (distance / maxDistance));
+
+            // Play random enemy footstep sound with distance-adjusted volume
+            int randomIndex = Random.Range(0, enemyFootstepSounds.Length);
+            footstepSource.PlayOneShot(enemyFootstepSounds[randomIndex], enemyFootstepVolume * volumeMultiplier);
         }
     }
 

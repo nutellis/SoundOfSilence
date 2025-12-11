@@ -24,6 +24,9 @@ public class Minion : MonoBehaviour
 
     public Action onDestroy;
 
+    private float footstepTimer = 0f;
+    private Transform player;
+
     public void Initialize(Transform[] laneWaypoints)
     {
         waypoints = laneWaypoints;
@@ -35,6 +38,13 @@ public class Minion : MonoBehaviour
         animator.SetFloat("speed", 1 / moveSpeed);
 
         transform.forward = -Vector3.forward;
+
+        // Get player reference for footstep distance calculation
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
 
         MinionHealth health = GetComponent<MinionHealth>();
         if(health != null)
@@ -69,6 +79,21 @@ public class Minion : MonoBehaviour
 
             state.isWalking = true;
 
+            // Play enemy footsteps while walking
+            if (AudioManager.Instance != null && player != null)
+            {
+                footstepTimer += Time.deltaTime;
+                if (footstepTimer >= AudioManager.Instance.enemyFootstepInterval)
+                {
+                    AudioManager.Instance.PlayEnemyFootstep(transform.position, player.position);
+                    footstepTimer = 0f;
+                }
+            }
+
+        }
+        else
+        {
+            footstepTimer = 0f;
         }
         animator.SetBool("isAttacking", state.isAttacking);
         animator.SetBool("isWalking", state.isWalking);
@@ -95,6 +120,12 @@ public class Minion : MonoBehaviour
     //ty chatgpt
     void Explosion()
     {
+        // Play explosion sound effect
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayExplosion();
+        }
+
         var vfx = Instantiate(deathVFX, transform.position, Quaternion.identity);
         ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
         if (ps == null) ps = vfx.GetComponentInChildren<ParticleSystem>();
@@ -124,6 +155,7 @@ public class Minion : MonoBehaviour
         {
             manager.OnMinionDeath(deathCost);
         }
+
         state.isDying = true;
         animator.SetBool("isDying", state.isDying);
         animator.SetBool("isWalking", false);

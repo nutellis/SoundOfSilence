@@ -60,10 +60,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: eb80827bfbb836147a8debbe45805919, type: 3}
   lossLongSFX: {fileID: 8300000, guid: 151740bd6a6532c45928847643d277e7, type: 3}
   jumpSFX: {fileID: 8300000, guid: 031b28b8c8d936f409c23ecaee1bb7f3, type: 3}
+  fireCrackleSFX: {fileID: 8300000, guid: ea4464806e8368c42a61c38a4b919751, type: 3}
+  fireBurstSFX: {fileID: 8300000, guid: 46347c26e74102b41b2c9de36b93d03c, type: 3}
+  explosionSFX: {fileID: 8300000, guid: 61acf57a9cf319d4297e6f130882977d, type: 3}
   battleBeginVolume: 0.455
   playerDamageVolume: 0.425
   lossLongVolume: 0.5
   jumpVolume: 0.35
+  fireCrackleVolume: 0.578
+  fireBurstVolume: 0.8
+  explosionVolume: 0.225
   footstepSounds:
   - {fileID: 8300000, guid: e464b10d52472204194ad6739d9e4592, type: 3}
   - {fileID: 8300000, guid: 3b1e460e77ef14e4e941b221cbcc5d2d, type: 3}
@@ -73,3 +79,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a8e07e60c5d454d48a305a6ee699411c, type: 3}
   footstepVolume: 0.35
   footstepInterval: 0.5
+  enemyFootstepSounds:
+  - {fileID: 8300000, guid: 5f6a8b45686a6cf40bfb8baae0e9e241, type: 3}
+  - {fileID: 8300000, guid: 910e4b14537827e4f89053e9c203f5ce, type: 3}
+  - {fileID: 8300000, guid: 61dbcb9cfe4630e4ca6ff295f63a9612, type: 3}
+  - {fileID: 8300000, guid: 616adcde04fa9d44eacba8fb6ed49dc9, type: 3}
+  - {fileID: 8300000, guid: 4248d6ae7fb5a9d499377c863bc187ad, type: 3}
+  - {fileID: 8300000, guid: 29cd9227e40c4ec4399fbadc9ba1cee6, type: 3}
+  enemyFootstepVolume: 0.348
+  enemyFootstepInterval: 0.6

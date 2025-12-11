@@ -29,6 +29,12 @@ public class Instrument : MonoBehaviour
         {
             Debug.Log("Successfully fired " + instrumentName);
 
+            // Play fire burst sound effect
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayFireBurst();
+            }
+
             var projectile = Instantiate(projectileSpawn, projectilePosition.position, projectilePosition.rotation);
             var projectileData = projectile.GetComponent<Projectile>();
             projectileData.Initialize(gameObject);
