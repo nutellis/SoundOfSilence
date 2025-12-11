@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using System;
 
 public class InsultBuilderRuntimeUI : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
     public Button fireButton;
 
     GameObject bossObject;
+
+    public TtsHelper sound;
 
     private void Start()
     {
@@ -42,7 +45,6 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
     public void StartInsultBuilder()
     {
         Cursor.lockState = CursorLockMode.None;
-
 
         panel.SetActive(true);
     }
@@ -135,6 +137,12 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
         if (insultBuilder.BuildInsult(out insult, out dmg, out gold))
         {
             Debug.Log($"FIRED: {insult} | Damage={dmg} | Gold={gold}");
+
+            TtsHelper sound = GetComponent<TtsHelper>();
+            if (sound)
+            {
+                sound.PlayInsult(insult);
+            }
 
             bossObject = GameObject.FindWithTag("Boss");
             if(bossObject)

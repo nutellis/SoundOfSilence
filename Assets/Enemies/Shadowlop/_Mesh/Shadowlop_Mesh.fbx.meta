@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: c15f93451e281b24dbbaef13ea94f004
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272635
+  packageName: 'Cursed Toy: Shadowlop'
+  packageVersion: 1.0
+  assetPath: Assets/Shadowlop/_Mesh/Shadowlop_Mesh.fbx
+  uploadId: 633042
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,15 +23,13 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -93,13 +98,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
@@ -107,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 272635
-  packageName: 'Cursed Toy: Shadowlop'
-  packageVersion: 1.0
-  assetPath: Assets/Shadowlop/_Mesh/Shadowlop_Mesh.fbx
-  uploadId: 633042

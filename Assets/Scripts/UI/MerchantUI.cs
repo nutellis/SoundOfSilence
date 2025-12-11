@@ -20,6 +20,10 @@ public class MerchantUI : MonoBehaviour
     [Header("Input")]
     public KeyCode toggleKey = KeyCode.M;       // open/close shop with M
 
+    public Collider collider;
+
+    bool canInteract = false;
+
     private void Start()
     {
         if (merchant == null)
@@ -39,13 +43,16 @@ public class MerchantUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(toggleKey) && panel != null)
+        if(canInteract)
         {
-            bool active = !panel.activeSelf;
-            panel.SetActive(active);
+            if (Input.GetKeyDown(toggleKey) && panel != null)
+            {
+                bool active = !panel.activeSelf;
+                panel.SetActive(active);
 
-            if (active)
-                RefreshUI();
+                if (active)
+                    RefreshUI();
+            }
         }
     }
 
@@ -135,4 +142,17 @@ public class MerchantUI : MonoBehaviour
             RefreshUI();
         }
     }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        canInteract = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        canInteract = false;
+    }
+
+
 }
