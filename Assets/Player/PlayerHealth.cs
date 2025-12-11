@@ -40,12 +40,25 @@ public class PlayerHealth : MonoBehaviour
      //   animator.SetTrigger("Hit");
         currentHealth -= damage;
         UpdateHealthUI();
+
+        // Play damage sound effect
+        if (AudioManager.Instance != null && currentHealth > 0)
+        {
+            AudioManager.Instance.PlayPlayerDamage();
+        }
+
         if (currentHealth <= 0)
         {
+            // Play death sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayPlayerDeath();
+            }
+
             playerDeathUI.SetActive(true);
             Time.timeScale = 0f;
-            
-            //disable all action components like camera 
+
+            //disable all action components like camera
             PlayerInput playerInput = GetComponent<PlayerInput>();
             if (playerInput != null)
             {
