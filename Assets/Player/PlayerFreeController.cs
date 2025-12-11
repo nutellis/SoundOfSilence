@@ -88,6 +88,11 @@ public class PlayerFreeController : MonoBehaviour
         // Simple ground check
         if (collision.contacts[0].normal.y > 0.5f)
         {
+            // Play landing sound only if we were jumping
+            if (isJumping && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayJump();
+            }
             isJumping = false;
         }
     }

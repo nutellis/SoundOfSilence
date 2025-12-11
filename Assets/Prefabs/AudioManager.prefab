@@ -59,9 +59,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 19905c6eb2b870b4b84fcc056c1ceb26, type: 3}
   - {fileID: 8300000, guid: eb80827bfbb836147a8debbe45805919, type: 3}
   lossLongSFX: {fileID: 8300000, guid: 151740bd6a6532c45928847643d277e7, type: 3}
+  jumpSFX: {fileID: 8300000, guid: 031b28b8c8d936f409c23ecaee1bb7f3, type: 3}
   battleBeginVolume: 0.455
   playerDamageVolume: 0.425
   lossLongVolume: 0.5
+  jumpVolume: 0.35
   footstepSounds:
   - {fileID: 8300000, guid: e464b10d52472204194ad6739d9e4592, type: 3}
   - {fileID: 8300000, guid: 3b1e460e77ef14e4e941b221cbcc5d2d, type: 3}

@@ -19,11 +19,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip battleBeginSFX;
     public AudioClip[] playerDamageSounds;
     public AudioClip lossLongSFX;
+    public AudioClip jumpSFX;
 
     [Header("SFX Volume Settings (0-1)")]
     [Range(0f, 1f)] public float battleBeginVolume = 1.0f;
     [Range(0f, 1f)] public float playerDamageVolume = 0.8f;
     [Range(0f, 1f)] public float lossLongVolume = 1.0f;
+    [Range(0f, 1f)] public float jumpVolume = 0.7f;
 
     [Header("Footsteps")]
     public AudioClip[] footstepSounds;
@@ -176,6 +178,14 @@ public class AudioManager : MonoBehaviour
         else
         {
             footstepTimer = 0f;
+        }
+    }
+
+    public void PlayJump()
+    {
+        if (jumpSFX != null)
+        {
+            sfxSource.PlayOneShot(jumpSFX, jumpVolume);
         }
     }
 
