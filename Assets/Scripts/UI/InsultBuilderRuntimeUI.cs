@@ -52,6 +52,8 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
         panel.SetActive(true);
 
         input = inInput;
+
+        Time.timeScale = 0.0f;
     }
 
     private void BuildOwnedWordButtons()
@@ -162,6 +164,7 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
             RefreshSlots();
             panel.SetActive(false);
             input.ActivateInput();
+            Time.timeScale = 1.0f;
         }
         else
         {

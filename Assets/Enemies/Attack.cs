@@ -4,7 +4,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public int attackDamage = 10;
-    public float attackRange = 2f;
+    public float attackRange = 1f;
     public float attackCooldown = 2f;
     private float nextAttackTime;
 
@@ -72,7 +72,6 @@ public class Attack : MonoBehaviour
         Debug.Log("Ranged enemy throws a projectile at the player!");
     }
 
-    //im lazy :)
     public void RangedAttackFinished()
     {
         state.isAttacking = false;
