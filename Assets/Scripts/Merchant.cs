@@ -1,6 +1,19 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+
+public class ShopItem
+{
+    public InsultWord word;
+    public int priceOverride = -1;  // if < 0, use word.goldCost
+
+    public int GetPrice()
+    {
+        if (word == null) return 0;
+        return priceOverride > 0 ? priceOverride : word.goldCost;
+    }
+}
 
 public class Merchant : MonoBehaviour
 {
@@ -10,23 +23,16 @@ public class Merchant : MonoBehaviour
     [SerializeField] private InsultBuilder insultBuilder;
 
     [Header("Shop Stock")]
-    [SerializeField] private List<ShopItem> insultWordStock = new();
+    [SerializeField] public List<ShopItem> insultWordStock = new();
 
     [Header("Upgrades")]
     [SerializeField] private int slotUpgradePrice = 20; // gold cost per extra slot
 
-    [Serializable]
-    public class ShopItem
-    {
-        public InsultWord word;
-        public int priceOverride = -1;  // if < 0, use word.goldCost
+    [Header("Input")]
+    public KeyCode toggleKey = KeyCode.M;
+    public Action interactAction;
 
-        public int GetPrice()
-        {
-            if (word == null) return 0;
-            return priceOverride > 0 ? priceOverride : word.goldCost;
-        }
-    }
+    bool canInteract;
 
     private void Awake()
     {
@@ -39,6 +45,18 @@ public class Merchant : MonoBehaviour
 
         if (insultBuilder == null)
             insultBuilder = FindObjectOfType<InsultBuilder>();
+    }
+
+    private void Update()
+    {
+        if(canInteract)
+        {
+            if (Input.GetKeyDown(toggleKey))
+            {
+                interactAction();
+            }
+        }
+
     }
 
     // --------------- PUBLIC API ---------------
@@ -164,5 +182,17 @@ public class Merchant : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            canInteract = true;
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            canInteract = false;
+        }
+    }
 }

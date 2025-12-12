@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 446339469299532795}
   - component: {fileID: 5455969180473523902}
-  - component: {fileID: 7770736886940732502}
-  - component: {fileID: 8392480061936361533}
+  - component: {fileID: 5000596595477768636}
+  - component: {fileID: 452420474812589420}
   m_Layer: 0
   m_Name: Merchant
   m_TagString: Untagged
@@ -50,37 +50,25 @@ MonoBehaviour:
   playerInventory: {fileID: 0}
   playerWallet: {fileID: 0}
   insultBuilder: {fileID: 0}
-  insultWordStock: []
   slotUpgradePrice: 20
---- !u!54 &7770736886940732502
-Rigidbody:
+  toggleKey: 109
+--- !u!114 &5000596595477768636
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3877084457094501293}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!136 &8392480061936361533
-CapsuleCollider:
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2195dfe08bc2f8b4c899c9fe3e95f9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourcesPath: InsultWords
+  loadOnStart: 1
+  clearExistingStock: 1
+--- !u!65 &452420474812589420
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,14 +82,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 4}
+  m_Center: {x: 0, y: 1, z: 1}
 --- !u!1001 &41304108435288929
 PrefabInstance:
   m_ObjectHideFlags: 0

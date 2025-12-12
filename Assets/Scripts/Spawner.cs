@@ -87,6 +87,11 @@ public class Spawner : MonoBehaviour
             if (boss != null)
             {
                 prefabToSpawn = boss.GetNextMinionPrefab(this);
+            } else
+            {
+                //this is supposed to stop safely the coroutine;
+                yield return null;
+                yield break;
             }
 
             if (prefabToSpawn == null)

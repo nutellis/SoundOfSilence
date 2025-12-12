@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MerchantUI : MonoBehaviour
@@ -13,8 +15,7 @@ public class MerchantUI : MonoBehaviour
     public Text goldText;        // "Gold: X"
 
     [Header("UI - Left List")]
-    public Transform listParent;       // ScrollRect/Viewport/Content
-    public GameObject listEntryPrefab; // Button + child Text
+    public Transform ContentList;       // ScrollRect/Viewport/Content
 
     [Header("UI - Right Details")]
     public Text detailTitleText;
@@ -22,14 +23,13 @@ public class MerchantUI : MonoBehaviour
     public Text detailPriceText;
     public Button buyButton;
 
-    [Header("Input")]
-    public KeyCode toggleKey = KeyCode.M;
-
-    [Header("Interaction")]
-    public string playerTag = "Player";
-
-    private bool canInteract;
     private InsultWord selectedWord;
+
+    private List<ShopItem> merchantList;
+
+    public GameObject buttonPrefab;
+
+    public PlayerInput input;
 
     private void Start()
     {
@@ -41,23 +41,35 @@ public class MerchantUI : MonoBehaviour
         if (buyButton != null)
             buyButton.onClick.AddListener(OnBuyClicked);
 
-        RefreshUI();
-        ClearDetails();
+        //RefreshUI();
+        //ClearDetails();
+
+        merchant.interactAction += () => onMerchantInteract();
+
+        merchantList = merchant.insultWordStock;
     }
 
     private void Update()
     {
-        if (!canInteract || panel == null) return;
+    }
 
-        if (Input.GetKeyDown(toggleKey))
+    private void onMerchantInteract()
+    {
+        if(panel != null)
         {
             bool active = !panel.activeSelf;
             panel.SetActive(active);
 
             if (active)
             {
+                Cursor.lockState = CursorLockMode.None;
+                input.DeactivateInput();
                 RefreshUI();
                 ClearDetails();
+            } else
+            {
+                input.ActivateInput();
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
     }
@@ -72,22 +84,20 @@ public class MerchantUI : MonoBehaviour
 
     private void BuildList()
     {
-        if (merchant == null || listParent == null || listEntryPrefab == null)
+        if (merchant == null || ContentList == null || merchantList == null)
             return;
 
-        for (int i = listParent.childCount - 1; i >= 0; i--)
-            Destroy(listParent.GetChild(i).gameObject);
+        for (int i = ContentList.childCount - 1; i >= 0; i--)
+            Destroy(ContentList.GetChild(i).gameObject);
 
-        IReadOnlyList<Merchant.ShopItem> stock = merchant.GetStock();
-
-        foreach (var item in stock)
+        foreach (var item in merchantList)
         {
             if (item?.word == null) continue;
 
-            GameObject row = Instantiate(listEntryPrefab, listParent);
-
+            GameObject row = Instantiate(buttonPrefab, ContentList);
             Button btn = row.GetComponent<Button>();
             Text label = row.GetComponentInChildren<Text>();
+
 
             int price = item.GetPrice();
 
@@ -97,7 +107,10 @@ public class MerchantUI : MonoBehaviour
             InsultWord wordCopy = item.word;
 
             if (btn != null)
+            {
+                btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => OnSelectWord(wordCopy));
+            }
         }
     }
 
@@ -145,19 +158,4 @@ public class MerchantUI : MonoBehaviour
         if (success)
             ClearDetails();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(playerTag))
-            canInteract = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(playerTag))
-        {
-            canInteract = false;
-            if (panel != null) panel.SetActive(false);
-        }
-    }
-}
+}   

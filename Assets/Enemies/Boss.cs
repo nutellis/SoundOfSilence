@@ -18,6 +18,17 @@ public class Boss : MonoBehaviour
     [Header("Minions the boss controls")]
     public List<WeightedMinion> minionPool = new List<WeightedMinion>();
 
+
+    private void Start()
+    {
+        Minion minion = GetComponent<Minion>();
+        if (minion != null)
+        {
+            minion.onDestroy += () => BossDied();
+        }
+    }
+
+
     // (boss can auto-call spawners or do other behavior on start)
     public void OnBattleStarted(Spawner[] spawners)
     {
@@ -56,6 +67,15 @@ public class Boss : MonoBehaviour
         }
 
         return minionPool[minionPool.Count - 1].prefab;
+    }
+
+    public void BossDied()
+    {
+        Player player = FindFirstObjectByType<Player>();
+        if (player != null)
+        {
+            player.YouWon();
+        }
     }
 
     // for more control: spawn directly

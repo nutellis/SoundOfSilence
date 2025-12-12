@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using System;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class InsultBuilderRuntimeUI : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
     public Button fireButton;
 
     GameObject bossObject;
+
+    public GameObject buttonPrefab;
 
     PlayerInput input;
 
@@ -61,27 +64,13 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
         foreach (var w in inventory.OwnedWords)
         {
-            GameObject btnGO = new GameObject(w.displayText);
-            btnGO.transform.SetParent(ownedWordsRow);
+            GameObject row = Instantiate(buttonPrefab, ownedWordsRow);
+            Button btn = row.GetComponent<Button>();
+            Text label = row.GetComponentInChildren<Text>();
 
-            Button btn = btnGO.AddComponent<Button>();
-            Image img = btnGO.AddComponent<Image>();
-            img.color = new Color(1, 1, 1, 0.3f);
-
-            GameObject labelGO = new GameObject(w.displayText);
-            labelGO.transform.SetParent(btnGO.transform);
-
-            Text label = labelGO.AddComponent<Text>();
             label.text = w.displayText;
-            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            label.color = Color.black;
-            label.alignment = TextAnchor.MiddleCenter;
 
             btn.onClick.AddListener(() => OnOwnedWordClicked(w));
-
-            // Fit text inside button
-            RectTransform rt = btnGO.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(150, 40);
         }
     }
 
@@ -108,23 +97,17 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
         foreach (var w in insultBuilder.CurrentWords)
         {
 
-            GameObject btnGO = new GameObject(w.displayText);
-            btnGO = new GameObject(w.displayText);
-            btnGO.transform.SetParent(currentInsult);
+            GameObject row = Instantiate(buttonPrefab, currentInsult);
+            Button btn = row.GetComponent<Button>();
+            Text label = row.GetComponentInChildren<Text>();
 
-            Button btn = btnGO.AddComponent<Button>();
+            RectTransform rt = btn.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(128, rt.sizeDelta.y);
 
-            Text label = btnGO.AddComponent<Text>();
             label.text = w.displayText;
-            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            label.color = Color.black;
-            label.alignment = TextAnchor.MiddleCenter;
-
+            
             btn.onClick.AddListener(() => RemoveWordFromList(w));
 
-            // Fit text inside button
-            RectTransform rt = btnGO.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(150, 40);
         }
     }
 
@@ -166,6 +149,7 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
             panel.SetActive(false);
             input.ActivateInput();
             Time.timeScale = 1.0f;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {

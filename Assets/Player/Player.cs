@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour
 
     Animator modelAnimator;
     private PlayerInput input;
+
+    public GameObject playerWonUI;
 
     void Start()
     {
@@ -67,5 +70,22 @@ public class Player : MonoBehaviour
 
             battleController.enabled = true;
         }
+    }
+
+    public void YouWon()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+        input.DeactivateInput();
+        playerWonUI.SetActive(true);
+    }
+
+    public void ExitGame()
+    {
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }

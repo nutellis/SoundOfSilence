@@ -47,12 +47,7 @@ MonoBehaviour:
   insultBuilder: {fileID: 0}
   inventory: {fileID: 0}
   panel: {fileID: 0}
-  slotButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  slotLabels:
-  - {fileID: 0}
-  - {fileID: 0}
+  currentInsult: {fileID: 0}
   ownedWordsRow: {fileID: 0}
   fireButton: {fileID: 0}
-  toggleKey: 114
+  buttonPrefab: {fileID: 3330426288016583290, guid: 536f047d63d08cd499b63067f51a7bd6, type: 3}
