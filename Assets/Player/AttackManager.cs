@@ -73,6 +73,12 @@ public class AttackManager : MonoBehaviour
     {
         Debug.Log("<color=magenta>Insult Attack performed!</color>");
 
+        // Play random insult sound effect
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayInsultSound();
+        }
+
         //call whatever you need to call from here
         if(insultBuilder != null )
         {
