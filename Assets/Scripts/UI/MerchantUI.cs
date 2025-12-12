@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,150 +9,179 @@ public class MerchantUI : MonoBehaviour
     public Merchant merchant;
     public PlayerWallet playerWallet;
 
-    [Header("UI Objects")]
-    public GameObject panel;                    // MerchantPanel
-    public TextMeshProUGUI goldText;            // shows "Gold: X"
-    public Transform wordListParent;            // parent for shop items (Vertical Layout Group)
-    public GameObject wordEntryPrefab;          // prefab for each word row (Button + TMP text)
-    public Button slotUpgradeButton;            // "Buy Slot Upgrade" button
-    public TextMeshProUGUI slotUpgradePriceText; // shows price for slot upgrade
+    [Header("UI - Root")]
+    public GameObject panel;     // whole merchant UI root (MerchantPanel)
+    public Text goldText;        // Legacy Text: "Gold: X"
+
+    [Header("UI - Left List")]
+    public Transform listParent;     // Content object inside ScrollRect
+    public GameObject listEntryPrefab; // prefab: Button + (child) Legacy Text
+
+    [Header("UI - Right Details")]
+    public Text detailTitleText;     // Legacy Text (e.g., insult name)
+    public Text detailBodyText;      // Legacy Text (tags/desc etc.)
+    public Text detailPriceText;     // Legacy Text (e.g., "Price: 10g")
+    public Button buyButton;         // Buy button
 
     [Header("Input")]
-    public KeyCode toggleKey = KeyCode.M;       // open/close shop with M
+    public KeyCode toggleKey = KeyCode.M;
 
-    public Collider collider;
+    [Header("Interaction")]
+    public string playerTag = "Player";
 
-    bool canInteract = false;
+    private bool canInteract;
+    private InsultWord selectedWord;
+    private int selectedPrice;
 
     private void Start()
     {
-        if (merchant == null)
-            merchant = FindObjectOfType<Merchant>();
+        if (merchant == null) merchant = FindObjectOfType<Merchant>();
+        if (playerWallet == null) playerWallet = FindObjectOfType<PlayerWallet>();
 
-        if (playerWallet == null)
-            playerWallet = FindObjectOfType<PlayerWallet>();
+        if (panel != null) panel.SetActive(false);
 
-        if (panel != null)
-            panel.SetActive(false);
-
-        if (slotUpgradeButton != null)
-            slotUpgradeButton.onClick.AddListener(OnSlotUpgradeClicked);
+        if (buyButton != null)
+            buyButton.onClick.AddListener(OnBuyClicked);
 
         RefreshUI();
+        ClearDetails();
     }
 
     private void Update()
     {
-        if(canInteract)
-        {
-            if (Input.GetKeyDown(toggleKey) && panel != null)
-            {
-                bool active = !panel.activeSelf;
-                panel.SetActive(active);
+        if (!canInteract || panel == null) return;
 
-                if (active)
-                    RefreshUI();
+        if (Input.GetKeyDown(toggleKey))
+        {
+            bool active = !panel.activeSelf;
+            panel.SetActive(active);
+
+            if (active)
+            {
+                RefreshUI();
+                ClearDetails();
             }
         }
     }
 
     private void RefreshUI()
     {
+        // Gold
         if (playerWallet != null && goldText != null)
             goldText.text = $"Gold: {playerWallet.CurrentGold}";
 
-        if (merchant != null && slotUpgradePriceText != null)
-            slotUpgradePriceText.text = $"Buy slot (+1) - {GetSlotUpgradePrice()}g";
-
-        BuildWordList();
+        // Rebuild list
+        BuildList();
     }
 
-    private int GetSlotUpgradePrice()
+    private void BuildList()
     {
-        // we exposed slotUpgradePrice in Merchant, but not public – easiest is:
-        // use reflection OR just hardcode same value here.
-        // For now, we assume 20g like in Merchant.cs
-        return 20;
-    }
-
-    private void BuildWordList()
-    {
-        if (merchant == null || wordListParent == null || wordEntryPrefab == null)
+        if (merchant == null || listParent == null || listEntryPrefab == null)
             return;
 
         // Clear old entries
-        for (int i = wordListParent.childCount - 1; i >= 0; i--)
-        {
-            Destroy(wordListParent.GetChild(i).gameObject);
-        }
+        for (int i = listParent.childCount - 1; i >= 0; i--)
+            Destroy(listParent.GetChild(i).gameObject);
 
         IReadOnlyList<Merchant.ShopItem> stock = merchant.GetStock();
         foreach (var item in stock)
         {
-            if (item == null || item.word == null)
-                continue;
+            if (item?.word == null) continue;
 
-            GameObject entryGO = Instantiate(wordEntryPrefab, wordListParent);
+            GameObject entryGO = Instantiate(listEntryPrefab, listParent);
+
             Button btn = entryGO.GetComponent<Button>();
+            Text label = entryGO.GetComponentInChildren<Text>(); // Legacy Text in children
 
-            TextMeshProUGUI label = entryGO.GetComponentInChildren<TextMeshProUGUI>();
+            int price = item.GetPrice();
             if (label != null)
-            {
-                int price = item.GetPrice();
                 label.text = $"{item.word.displayText} - {price}g";
-            }
 
             InsultWord wordCopy = item.word;
-            btn.onClick.AddListener(() => OnBuyWordClicked(wordCopy));
+            int priceCopy = price;
+
+            if (btn != null)
+                btn.onClick.AddListener(() => OnSelectWord(wordCopy, priceCopy));
         }
     }
 
-    private void OnBuyWordClicked(InsultWord word)
+    private void OnSelectWord(InsultWord word, int price)
     {
-        if (merchant == null)
+        selectedWord = word;
+        selectedPrice = price;
+
+        if (detailTitleText != null)
+            detailTitleText.text = word != null ? word.displayText : "—";
+
+        // Build a readable details string for your current InsultWord fields
+        // (Adjust these lines to match your InsultWord class exactly)
+        if (detailBodyText != null)
+        {
+            string tags = (word != null && word.tags != null)
+                ? string.Join(", ", word.tags)
+                : "No tags";
+
+            detailBodyText.text =
+                $"Tags: {tags}\n" +
+                $"Damage: {word.baseDamage}\n" +
+                $"Gold: {word.goldCost}\n";
+        }
+
+
+        if (detailPriceText != null)
+            detailPriceText.text = $"Price: {selectedPrice}g";
+
+        if (buyButton != null)
+            buyButton.interactable = (selectedWord != null);
+    }
+
+    private void ClearDetails()
+    {
+        selectedWord = null;
+        selectedPrice = 0;
+
+        if (detailTitleText != null) detailTitleText.text = "Choose an insult";
+        if (detailBodyText != null) detailBodyText.text = "";
+        if (detailPriceText != null) detailPriceText.text = "";
+
+        if (buyButton != null)
+            buyButton.interactable = false;
+    }
+
+    private void OnBuyClicked()
+    {
+        if (merchant == null || selectedWord == null)
             return;
 
-        bool success = merchant.TryBuyInsultWord(word);
+        bool success = merchant.TryBuyInsultWord(selectedWord);
         if (success)
         {
-            Debug.Log($"MerchantUI: Bought word {word.displayText}");
+            Debug.Log($"MerchantUI: Bought {selectedWord.displayText}");
             RefreshUI();
+            ClearDetails(); // optional: force reselect after buying
         }
         else
         {
-            Debug.Log("MerchantUI: Could not buy word.");
+            Debug.Log("MerchantUI: Could not buy (not enough gold / already owned / etc.)");
             RefreshUI();
         }
     }
 
-    private void OnSlotUpgradeClicked()
+    // Use TRIGGERS (recommended)
+    private void OnTriggerEnter(Collider other)
     {
-        if (merchant == null)
-            return;
+        if (other.CompareTag(playerTag))
+            canInteract = true;
+    }
 
-        bool success = merchant.TryBuySlotUpgrade();
-        if (success)
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(playerTag))
         {
-            Debug.Log("MerchantUI: Bought slot upgrade.");
-            RefreshUI();
-        }
-        else
-        {
-            Debug.Log("MerchantUI: Could not buy slot upgrade.");
-            RefreshUI();
+            canInteract = false;
+
+            // auto close UI when leaving merchant
+            if (panel != null) panel.SetActive(false);
         }
     }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        canInteract = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        canInteract = false;
-    }
-
-
 }
