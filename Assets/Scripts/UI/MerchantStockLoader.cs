@@ -1,10 +1,11 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MerchantStockLoader : MonoBehaviour
 {
-    public string resourcesPath = "Assets/Data/InsultWords"; // Resources/Insults
+    [Tooltip("Looks in Assets/Resources/<Assets/Data/InsultWords>")]
+    public string resourcesPath = "Assets/Data/InsultWords";
     public bool loadOnStart = true;
+    public bool clearExistingStock = true;
 
     private Merchant merchant;
 
@@ -15,30 +16,27 @@ public class MerchantStockLoader : MonoBehaviour
 
     private void Start()
     {
-        if (loadOnStart)
-            LoadFromResources();
+        if (loadOnStart) Load();
     }
 
-    [ContextMenu("Load From Resources")]
-    public void LoadFromResources()
+    [ContextMenu("Load Stock Now")]
+    public void Load()
     {
         if (merchant == null)
         {
-            Debug.LogError("MerchantStockLoader: Merchant not found on same GameObject.");
+            Debug.LogError("MerchantStockLoader: No Merchant found on this GameObject.");
             return;
         }
 
         InsultWord[] words = Resources.LoadAll<InsultWord>(resourcesPath);
+
         if (words == null || words.Length == 0)
         {
-            Debug.LogWarning($"MerchantStockLoader: No InsultWord found in Resources/{resourcesPath}");
+            Debug.LogWarning($"MerchantStockLoader: No InsultWord found at Resources/{resourcesPath}");
             return;
         }
 
-        // IMPORTANT: Merchant needs a way to accept stock.
-        // We call a method you'll add to Merchant: SetStockFromWords(words)
-        merchant.SetStockFromWords(words);
-
-        Debug.Log($"MerchantStockLoader: Loaded {words.Length} insults into merchant.");
+        merchant.SetStockFromWords(words, clearExistingStock);
+        Debug.Log($"MerchantStockLoader: Loaded {words.Length} insults into merchant stock.");
     }
 }
