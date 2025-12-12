@@ -19,8 +19,6 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
 
     GameObject bossObject;
 
-    public TtsHelper sound;
-
     PlayerInput input;
 
     private void Start()
@@ -65,12 +63,15 @@ public class InsultBuilderRuntimeUI : MonoBehaviour
         {
             GameObject btnGO = new GameObject(w.displayText);
             btnGO.transform.SetParent(ownedWordsRow);
-          //  btnGO.AddComponent<CanvasRenderer>();
-            Button btn = btnGO.AddComponent<Button>();
-           // Image img = btnGO.AddComponent<Image>();
-           // img.color = new Color(1, 1, 1, 0.3f);
 
-            Text label = btnGO.AddComponent<Text>();
+            Button btn = btnGO.AddComponent<Button>();
+            Image img = btnGO.AddComponent<Image>();
+            img.color = new Color(1, 1, 1, 0.3f);
+
+            GameObject labelGO = new GameObject(w.displayText);
+            labelGO.transform.SetParent(btnGO.transform);
+
+            Text label = labelGO.AddComponent<Text>();
             label.text = w.displayText;
             label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             label.color = Color.black;
