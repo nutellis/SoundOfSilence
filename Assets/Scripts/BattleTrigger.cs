@@ -16,6 +16,9 @@ public class BattleTrigger : MonoBehaviour
 
     bool triggered = false;
 
+    public GameObject light_1;
+    public GameObject light_2;
+
     void Start()
     {
         // auto-find spawners if not assigned
@@ -28,37 +31,39 @@ public class BattleTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (triggered && singleUse) return;
-
-        // detect player - assumes tag "Player" or has FirstPersonPlayer
-        var player = other.GetComponent<FirstPersonPlayer>();
-        if (player != null)
+        
+        if (other.CompareTag("Player"))
         {
             triggered = true;
-            StartBattle(player);
+            StartBattle(other.gameObject);
+
+            light_1.SetActive(true);
+            light_2.SetActive(true);
         }
     }
 
-    void StartBattle(FirstPersonPlayer player)
+    void StartBattle(GameObject player)
     {
+        Debug.Log("Initiating Battle");
+
+        // Start battle music and play battle begin SFX
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StartBattle();
+        }
+
         // limit player movement
         if (lockPlayerMovement)
         {
-            player.allowMovement = false;
-
-            var laneController = player.GetComponent<PlayerLaneController>();
-            if (laneController != null)
-            {
-                laneController.enabled = true;
-                laneController.SetLane(1); // center by default
-            }
-
-            // TODO: battle UI, music, etc.
+            var playerScript = player.GetComponent<Player>();
+            playerScript.switchToBattle();
         }
 
         // spawn boss
         GameObject bossGO = null;
         if (bossPrefab != null && bossSpawnPoint != null)
         {
+            
             bossGO = Instantiate(bossPrefab, bossSpawnPoint.position, bossSpawnPoint.rotation);
         }
         else if (bossPrefab != null)
@@ -71,14 +76,13 @@ public class BattleTrigger : MonoBehaviour
         {
             bossComponent = bossGO.GetComponent<Boss>();
         }
-
         // register spawners with boss
         foreach (var sp in spawners)
         {
             sp.AssignBoss(bossComponent);
             sp.StartSpawning();
         }
-
+        
         // let boss do initial spawn
         if (bossComponent != null)
         {

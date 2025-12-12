@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
+  m_Name: rubber chicken 3.0
+  m_EditorClassIdentifier: 
+  id: a1543d61-8fe7-46bd-825c-19a51ac1212d
+  displayText: Rubber Chicken 3.0
+  tags:
+  - appearance
+  - awkwardness
+  isNSFW: 0
+  baseDamage: 1
+  goldCost: 5

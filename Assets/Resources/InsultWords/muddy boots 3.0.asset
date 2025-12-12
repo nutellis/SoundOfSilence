@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
+  m_Name: muddy boots 3.0
+  m_EditorClassIdentifier: 
+  id: 4f7b49d4-2b09-4d7c-a0b3-3c79aa6b4964
+  displayText: Muddy Boots 3.0
+  tags:
+  - appearance
+  - hygiene
+  isNSFW: 0
+  baseDamage: 1
+  goldCost: 6

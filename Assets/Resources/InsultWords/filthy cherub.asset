@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
+  m_Name: filthy cherub
+  m_EditorClassIdentifier: 
+  id: 30f118eb-f459-4235-a5b0-10c0e82b07e2
+  displayText: Filthy cherub
+  tags:
+  - appearance
+  - hygiene
+  isNSFW: 0
+  baseDamage: 1
+  goldCost: 4

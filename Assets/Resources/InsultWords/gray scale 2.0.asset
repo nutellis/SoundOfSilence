@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4530351b95570b40b6ae2f2b4311192, type: 3}
+  m_Name: gray scale 2.0
+  m_EditorClassIdentifier: 
+  id: 015abd72-1310-4d22-8da6-2b2e2a899502
+  displayText: Gray Scale 2.0
+  tags:
+  - appearance
+  - personality
+  isNSFW: 0
+  baseDamage: 10
+  goldCost: 6

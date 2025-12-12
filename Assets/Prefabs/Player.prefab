@@ -155,6 +155,8 @@ GameObject:
   - component: {fileID: 2270935451802631399}
   - component: {fileID: 8421344577893919210}
   - component: {fileID: 61590051058873707}
+  - component: {fileID: 7672898502033679414}
+  - component: {fileID: -3283086761032718841}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -471,3 +473,31 @@ MonoBehaviour:
   - {fileID: 0}
   laneMoveSpeed: 21.18
   laneChangeCooldown: 0
+--- !u!114 &7672898502033679414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888039693643461150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7700182c20aaf48b18938c22b8c2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownedWords: []
+--- !u!114 &-3283086761032718841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888039693643461150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d25b2b9c3866e74686d6b58fbbf4449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInventory: {fileID: 0}
+  maxWordsPerInsult: 1
+  maxWordsCap: 5
