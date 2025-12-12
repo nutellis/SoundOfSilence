@@ -24,6 +24,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip fireBurstSFX;
     public AudioClip explosionSFX;
 
+    [Header("Boss Sound Effects")]
+    public AudioClip[] bossSpawnSounds; // 2 sounds, played occasionally
+    public AudioClip[] insultSounds; // Array of insult sounds
+    public AudioClip bossDeathSFX;
+    public AudioClip victorySFX;
+
     [Header("SFX Volume Settings (0-1)")]
     [Range(0f, 1f)] public float battleBeginVolume = 1.0f;
     [Range(0f, 1f)] public float playerDamageVolume = 0.8f;
@@ -32,6 +38,10 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float fireCrackleVolume = 0.8f;
     [Range(0f, 1f)] public float fireBurstVolume = 0.8f;
     [Range(0f, 1f)] public float explosionVolume = 0.9f;
+    [Range(0f, 1f)] public float bossSpawnVolume = 0.8f;
+    [Range(0f, 1f)] public float insultVolume = 0.9f;
+    [Range(0f, 1f)] public float bossDeathVolume = 1.0f;
+    [Range(0f, 1f)] public float victoryVolume = 1.0f;
 
     [Header("Footsteps")]
     public AudioClip[] footstepSounds;
@@ -271,5 +281,44 @@ public class AudioManager : MonoBehaviour
     {
         sfxSource.volume = Mathf.Clamp01(volume);
         footstepSource.volume = Mathf.Clamp01(volume * 0.6f);
+    }
+
+    public void PlayBossSpawnSound()
+    {
+        if (bossSpawnSounds != null && bossSpawnSounds.Length > 0)
+        {
+            int randomIndex = Random.Range(0, bossSpawnSounds.Length);
+            sfxSource.PlayOneShot(bossSpawnSounds[randomIndex], bossSpawnVolume);
+        }
+    }
+
+    public void PlayInsultSound()
+    {
+        if (insultSounds != null && insultSounds.Length > 0)
+        {
+            int randomIndex = Random.Range(0, insultSounds.Length);
+            sfxSource.PlayOneShot(insultSounds[randomIndex], insultVolume);
+        }
+    }
+
+    public void PlayBossDeathAndVictory()
+    {
+        if (bossDeathSFX != null)
+        {
+            sfxSource.PlayOneShot(bossDeathSFX, bossDeathVolume);
+
+            if (victorySFX != null)
+            {
+                StartCoroutine(PlayVictoryAfterBossDeath(bossDeathSFX.length));
+            }
+        }
+    }
+
+    IEnumerator PlayVictoryAfterBossDeath(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        musicSource.Stop();
+        sfxSource.PlayOneShot(victorySFX, victoryVolume);
     }
 }

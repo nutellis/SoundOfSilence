@@ -63,6 +63,17 @@ MonoBehaviour:
   fireCrackleSFX: {fileID: 8300000, guid: ea4464806e8368c42a61c38a4b919751, type: 3}
   fireBurstSFX: {fileID: 8300000, guid: 46347c26e74102b41b2c9de36b93d03c, type: 3}
   explosionSFX: {fileID: 8300000, guid: 61acf57a9cf319d4297e6f130882977d, type: 3}
+  bossSpawnSounds:
+  - {fileID: 8300000, guid: 989aad94f1a324f4e8a874d50021da62, type: 3}
+  - {fileID: 8300000, guid: 02a681ddebb8a5f4b8cee74370e3348b, type: 3}
+  insultSounds:
+  - {fileID: 8300000, guid: d8e7de5e42b12f647967e6f2ef0bd4e7, type: 3}
+  - {fileID: 8300000, guid: 571dfd7ae8bc5744c9065916a17a3475, type: 3}
+  - {fileID: 8300000, guid: 21e481b258748a841832e29d530b1ac9, type: 3}
+  - {fileID: 8300000, guid: 61f914a6b10c91c4ba0ad1638bcb52d4, type: 3}
+  - {fileID: 8300000, guid: 1bf6fed3f2aae7b41b4e72f834b05701, type: 3}
+  bossDeathSFX: {fileID: 8300000, guid: 390e07c79bd328f45907ac2366517399, type: 3}
+  victorySFX: {fileID: 8300000, guid: b61b68606f77821468023e13853f944f, type: 3}
   battleBeginVolume: 0.455
   playerDamageVolume: 0.425
   lossLongVolume: 0.5
@@ -70,6 +81,10 @@ MonoBehaviour:
   fireCrackleVolume: 0.578
   fireBurstVolume: 0.8
   explosionVolume: 0.225
+  bossSpawnVolume: 0.8
+  insultVolume: 0.9
+  bossDeathVolume: 1
+  victoryVolume: 1
   footstepSounds:
   - {fileID: 8300000, guid: e464b10d52472204194ad6739d9e4592, type: 3}
   - {fileID: 8300000, guid: 3b1e460e77ef14e4e941b221cbcc5d2d, type: 3}
@@ -88,5 +103,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 29cd9227e40c4ec4399fbadc9ba1cee6, type: 3}
   enemyFootstepVolume: 0.348
   enemyFootstepInterval: 0.6
-  instrumentMusicVolume: 0.7
-  backgroundMusicDuckingVolume: 0
