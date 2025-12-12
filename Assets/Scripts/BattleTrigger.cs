@@ -16,6 +16,9 @@ public class BattleTrigger : MonoBehaviour
 
     bool triggered = false;
 
+    public GameObject light_1;
+    public GameObject light_2;
+
     void Start()
     {
         // auto-find spawners if not assigned
@@ -33,6 +36,9 @@ public class BattleTrigger : MonoBehaviour
         {
             triggered = true;
             StartBattle(other.gameObject);
+
+            light_1.SetActive(true);
+            light_2.SetActive(true);
         }
     }
 
