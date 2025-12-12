@@ -144,4 +144,25 @@ public class Merchant : MonoBehaviour
         ShopItem item = insultWordStock.Find(i => i.word == word);
         return item != null ? item.GetPrice() : 0;
     }
+
+    public void SetStockFromWords(IEnumerable<InsultWord> words, bool clearFirst = true)
+    {
+        if (words == null) return;
+
+        if (clearFirst) insultWordStock.Clear();
+
+        foreach (var w in words)
+        {
+            if (w == null) continue;
+
+            insultWordStock.Add(new ShopItem
+            {
+                word = w,
+                priceOverride = -1 // use word.goldCost
+            });
+        }
+    }
+
+
+
 }

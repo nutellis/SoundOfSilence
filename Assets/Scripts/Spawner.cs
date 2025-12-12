@@ -22,6 +22,8 @@ public class Spawner : MonoBehaviour
     bool spawning = false;
     Coroutine spawnRoutine;
     private Transform[] waypoints;
+    private int spawnSoundCounter = 0;
+    private int nextSoundAt;
 
     void Awake()
     {
@@ -39,6 +41,9 @@ public class Spawner : MonoBehaviour
 
         if (spawnPoint == null)
             spawnPoint = transform; // fallback
+
+        // Initialize random spawn sound interval (3-5 spawns)
+        nextSoundAt = Random.Range(3, 6);
     }
 
     public void AssignBoss(Boss b)
@@ -93,6 +98,18 @@ public class Spawner : MonoBehaviour
             GameObject go = Instantiate(prefabToSpawn, spawnPoint != null ? spawnPoint.position : transform.position, Quaternion.identity);
             totalSpawned++;
             aliveCount++;
+
+            // Play spawn sound occasionally (every 3-5 spawns)
+            spawnSoundCounter++;
+            if (spawnSoundCounter >= nextSoundAt)
+            {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlayBossSpawnSound();
+                }
+                spawnSoundCounter = 0;
+                nextSoundAt = Random.Range(3, 6);
+            }
 
             // TODO: monster death callback
             var monster = go.GetComponent<Minion>();

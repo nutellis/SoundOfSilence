@@ -38,6 +38,16 @@ public class MinionHealth : MonoBehaviour
         UpdateHealthUI();
         if (currentHealth <= 0)
         {
+            // Check if this is the boss
+            if (gameObject.CompareTag("Boss"))
+            {
+                // Play boss death and victory sounds
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlayBossDeathAndVictory();
+                }
+            }
+
             shouldDestroy?.Invoke();
         }
     }
