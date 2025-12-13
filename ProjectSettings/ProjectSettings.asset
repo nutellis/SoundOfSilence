@@ -852,11 +852,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Myproject
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: Silent Treatment
+  metroCertificateIssuer: Silent Treatment
+  metroCertificateNotAfter: 806d04a3ab8add01
   metroApplicationDescription: My project
   wsaImages: {}
   metroTileShortName: My project

@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -53,9 +52,6 @@ public class Player : MonoBehaviour
         {
             //TODO: this needs a better handling.
             Debug.LogError("Failed to switch to Battle action map");
-
-            // assert to crash it :)
-            Assert.AreEqual("Battle", input.currentActionMap.name);
         }
 
         GetComponent<PlayerFreeController>().enabled = false;

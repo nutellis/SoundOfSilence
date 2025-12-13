@@ -90,7 +90,6 @@ public class Spawner : MonoBehaviour
             } else
             {
                 //this is supposed to stop safely the coroutine;
-                yield return null;
                 yield break;
             }
 
